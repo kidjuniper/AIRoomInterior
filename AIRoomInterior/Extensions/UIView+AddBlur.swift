@@ -1,5 +1,5 @@
 //
-//  UIView+MakeBlur.swift
+//  UIView+AddBlur.swift
 //  AIRoomInterior
 //
 //  Created by Nikita Stepanov on 27.07.2024.
@@ -25,11 +25,11 @@ extension UIView {
     
     
     func removeBlur() {
-        UIView.animate(withDuration: 0.6) {
-            UIView().viewWithTag(1111)?.layer.opacity = 0
+        UIView.animate(withDuration: 0.3) {
+            self.viewWithTag(1111)?.layer.opacity = 0
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            UIView().viewWithTag(1111)?.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.viewWithTag(1111)?.removeFromSuperview()
         }
     }
 }

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct RoomStyleCellData {
+    var styleImageName: String
+    var styleName: String
+    var isSelected: Bool
+}

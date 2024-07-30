@@ -6,3 +6,11 @@
 //
 
 import Foundation
+import UIKit
+
+protocol OnboardingPresenterProtocol: UICollectionViewDataSource,
+                                      UICollectionViewDelegateFlowLayout,
+                                      OnboardingViewOutputProtocol{
+    func viewDidLoad()
+    func getNextVC()
+}

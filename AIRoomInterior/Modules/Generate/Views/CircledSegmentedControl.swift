@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CircledSegmentedControl: UISegmentedControl {
     private let segmentInset: CGFloat = 5
@@ -24,23 +25,5 @@ class CircledSegmentedControl: UISegmentedControl {
             foregroundImageView.layer.masksToBounds = true
             foregroundImageView.layer.cornerRadius = foregroundImageView.bounds.height/2
         }
-    }
-}
-
-extension UIImage {
-    public convenience init?(color: UIColor,
-                             size: CGSize = CGSize(width: 1,
-                                                   height: 1)) {
-        let rect = CGRect(origin: .zero,
-                          size: size)
-        UIGraphicsBeginImageContextWithOptions(rect.size,
-                                               false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        guard let cgImage = image?.cgImage else { return nil }
-        self.init(cgImage: cgImage)
     }
 }

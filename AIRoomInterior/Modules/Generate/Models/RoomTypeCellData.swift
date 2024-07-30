@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct RoomTypeCellData {
+    var roomName: String
+    var isSelected: Bool
+}

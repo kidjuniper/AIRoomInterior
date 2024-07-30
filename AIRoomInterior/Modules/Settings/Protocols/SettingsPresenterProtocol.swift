@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+protocol SettingsPresenterProtocol: UITableViewDataSource,
+                                    SettingsViewOutputProtocol {
+    
+}

@@ -1,5 +1,5 @@
 //
-//  StackView+AddArrangedSubviews.swift
+//  UIStackView+AddArrangedSubviews.swift
 //  AIRoomInterior
 //
 //  Created by Nikita Stepanov on 26.07.2024.

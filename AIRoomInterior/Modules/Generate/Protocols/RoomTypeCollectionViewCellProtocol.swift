@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol RoomTypeCollectionViewCellProtocol {
+    func set(object: RoomTypeCellData)
+}

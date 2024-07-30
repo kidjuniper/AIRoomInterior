@@ -9,13 +9,11 @@ import Foundation
 import UIKit
 
 protocol GenerationViewOutputProtocol {
-    func selectStyle(styleId id: Int)
-    func selectRoom(roomId id: Int)
-    func selectMode(mode: InputMode)
-    func requestGeneration()
-}
-
-protocol GenerationViewInputProtocol: UIView {
-    func updateChoice()
-    func updateMode()
+    func selectedStyle(styleId id: Int)
+    func selectedRoom(roomId id: Int)
+    func selectedMode(mode: InputMode)
+    func settedDescription(text: String)
+    func selectedImage(image: UIImage)
+    func tappedImageSelection()
+    func generationPressed()
 }

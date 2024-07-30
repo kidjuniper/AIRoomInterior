@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import UIKit
+
+@frozen enum InputResult {
+    case image(UIImage)
+    case description(String)
+}

@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+protocol TopLineViewDelegate {
+    func subscriptionButtonPressed()
+    func settingsButtonPressed()
+}
