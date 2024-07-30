@@ -10,12 +10,12 @@ import Foundation
 enum RoomType: String,
                CaseIterable {
     case livingRoom = "Living Room"
-    case bedroom
-    case kitchen
-    case bathroom
-    case diningRoom
-    case office
-    case hotelRoom
-    case restaurant
-    case studyRoom
+    case bedroom = "Bedroom"
+    case kitchen = "Kitchen"
+    case bathroom = "Bathroom"
+    case diningRoom = "Dining room"
+    case office = "Office"
+    case hotelRoom = "Hotel room"
+    case restaurant = "Restaurant"
+    case studyRoom = "Study room"
 }

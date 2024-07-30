@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol OnboardingViewOutputProtocol {
+    func nextScreenButtonTaped(currentPage: Int)
+}

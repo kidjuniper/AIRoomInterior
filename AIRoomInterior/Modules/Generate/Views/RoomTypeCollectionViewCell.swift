@@ -41,37 +41,21 @@ class RoomTypeCollectionViewCell: UICollectionViewCell {
     
     func configurate(cellData data: RoomTypeCellData) {
         if data.isSelected {
-            roomNameLabel.backgroundColor = .darkGray
-            roomNameLabel.textColor = .lightGray
+            roomNameLabel.backgroundColor = .white
+            roomNameLabel.textColor = .black
         }
         else {
-            roomNameLabel.backgroundColor = .systemBlue
-            roomNameLabel.textColor = .darkGray
+            roomNameLabel.backgroundColor = .clear
+            roomNameLabel.textColor = .white
         }
         roomNameLabel.text = data.roomName
-        roomNameLabel.layer.cornerRadius = 15
-        roomNameLabel.clipsToBounds = true
+        layer.cornerRadius = 15
+        clipsToBounds = true
     }
 }
 
 extension RoomTypeCollectionViewCell: RoomTypeCollectionViewCellProtocol {
     func set(object: RoomTypeCellData) {
         configurate(cellData: object)
-    }
-}
-
-struct RoomTypeCellData {
-    var roomName: String
-    var isSelected: Bool
-}
-
-protocol RoomTypeCollectionViewCellProtocol {
-    func set(object: RoomTypeCellData)
-}
-
-extension String {
-    func generateWidth() -> CGFloat {
-        return CGFloat(max(20,
-                           (self.count) * 10 + 10))
     }
 }

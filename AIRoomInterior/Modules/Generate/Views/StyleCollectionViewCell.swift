@@ -17,6 +17,15 @@ class StyleCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    let styleNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: K.regularFontName,
+                            size: 15)
+        label.textAlignment = .center
+        label.textColor = .white
+        return label
+    }()
+    
     static let reuseId = "StyleCollectionViewCell"
     
     override init(frame: CGRect) {
@@ -34,14 +43,31 @@ class StyleCollectionViewCell: UICollectionViewCell {
         addSubview(styleImage)
         styleImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            styleImage.topAnchor.constraint(equalTo: topAnchor),
             styleImage.centerXAnchor.constraint(equalTo: centerXAnchor),
-            styleImage.centerYAnchor.constraint(equalTo: centerYAnchor),
             styleImage.heightAnchor.constraint(equalToConstant: 90),
-            styleImage.widthAnchor.constraint(equalToConstant: 90),
+            styleImage.widthAnchor.constraint(equalToConstant: 120),
+        ])
+        
+        addSubview(styleNameLabel)
+        styleNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            styleNameLabel.topAnchor.constraint(equalTo: styleImage.bottomAnchor,
+                                               constant: 5),
+            styleNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
     
-    func configurate(imageName: String) {
-        styleImage.image = UIImage(named: imageName)
+    func configurate(cellData data: RoomStyleCellData) {
+        styleImage.image = UIImage(named: data.styleImageName)
+        styleNameLabel.text = data.styleName
+        if data.isSelected {
+            styleImage.layer.opacity = 1
+        }
+        else {
+            styleImage.layer.opacity = 0.5
+        }
+        layer.cornerRadius = 15
+        clipsToBounds = true
     }
 }

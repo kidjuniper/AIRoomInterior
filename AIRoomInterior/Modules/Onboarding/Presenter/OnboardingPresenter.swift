@@ -5,37 +5,73 @@
 //  Created by Nikita Stepanov on 29.07.2024.
 //
 
-import Foundation
+import UIKit
 
-class OnboardingPresenter: OnboardingPresenterProtocol {
-    weak var view: OnboardingViewProtocol?
-    private var slides: [OnboardingSlide] = []
-    private var currentIndex = 0
+class OnboardingPresenter: NSObject {
+    weak var viewController: OnboardingViewInputProtocol?
+    
+    // MARK: - Private Properties
+    private let sceneBuildManager: Buildable
+    private var onboardingData: [OnboardingViewModelProtocol] = [OnboardingViewModel]()
+//    private let defaultsManager: DefaultsManagerable
+    
+    // MARK: - Initializer
+    init(viewController: OnboardingViewInputProtocol,
+         onboardingData: [OnboardingViewModelProtocol],
+         sceneBuildManager: Buildable) {
+        self.viewController = viewController
+        self.onboardingData = onboardingData
+        self.sceneBuildManager = sceneBuildManager
+    }
+}
+
+extension OnboardingPresenter: OnboardingPresenterProtocol {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return onboardingData.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        var cell: OnboardingSlideProtocol?
+       
+        let model = onboardingData[indexPath.row]
+        switch model.type {
+        case .Triptych:
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingTriptychCollectionViewCell.cellId,
+                                                                for: indexPath) as? OnboardingTriptychCollectionViewCell
+            cell?.configure(model: model)
+            return cell!
+        case .Cross:
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingCrossCollectionViewCell.cellId,
+                                                                for: indexPath) as? OnboardingCrossCollectionViewCell
+            cell?.configure(model: model)
+            return cell!
+        case .Lines:
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: OnboardingLinesCollectionViewCell.cellId,
+                                                                for: indexPath) as? OnboardingLinesCollectionViewCell
+            cell?.configure(model: model)
+            return cell!
+        }
+    }
     
     func viewDidLoad() {
-        slides = [
-            OnboardingSlide(title: "Welcome to AI Interior Design", description: "Instantly redesign your home with AI", imageName: "onboarding1"),
-            OnboardingSlide(title: "Take a photo of your room", description: "Choose a style to design your room", imageName: "onboarding2"),
-            OnboardingSlide(title: "One tap, infinite designs", description: "Get instant, detailed, and accurate interior design options", imageName: "onboarding3")
-        ]
-        view?.showSlides(slides)
+        viewController?.dataSetted(withPageNumber: onboardingData.count)
     }
     
-    func didTapNext() {
-        if currentIndex < slides.count - 1 {
-            currentIndex += 1
-            view?.showSlides([slides[currentIndex]])
+    func nextScreenButtonTaped(currentPage: Int) {
+        if currentPage >= 3 {
+            getNextVC()
+            return
         }
+        let indexPath = IndexPath(row: currentPage,
+                                  section: 0)
+        viewController?.scrollToNextScreen(indexPath: indexPath)
     }
     
-    func didTapPrevious() {
-        if currentIndex > 0 {
-            currentIndex -= 1
-            view?.showSlides([slides[currentIndex]])
-        }
-    }
-    
-    func didTapSkip() {
-        // Handle skip logic
+    func getNextVC() {
+        let mainViewController = sceneBuildManager.buildGenerateScreen()
+        let rootViewController = UINavigationController(rootViewController: mainViewController)
+        UIApplication.shared.windows.first?.rootViewController = rootViewController
     }
 }

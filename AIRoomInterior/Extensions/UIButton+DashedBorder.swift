@@ -6,3 +6,17 @@
 //
 
 import Foundation
+import UIKit
+
+extension UIButton {
+    func addDashedBorder() {
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.strokeColor = UIColor.lightGray.cgColor
+            shapeLayer.lineWidth = 1
+            shapeLayer.lineDashPattern = [4, 4]
+            shapeLayer.frame = bounds
+            shapeLayer.fillColor = nil
+            shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 15).cgPath
+            layer.addSublayer(shapeLayer)
+    }
+}
