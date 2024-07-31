@@ -12,7 +12,7 @@ class OnboardingViewController: UIViewController {
     // MARK: - UI components
     let topLabel: UILabel = {
         let label = UILabel()
-        label.text = "AppName"
+        label.text = "Archie"
         label.numberOfLines = 0
         label.font = UIFont(name: K.boldFontName,
                             size: 23)
@@ -33,6 +33,8 @@ class OnboardingViewController: UIViewController {
         collection.isPagingEnabled = true
         
         collection.contentInsetAdjustmentBehavior = .never
+        collection.bounces = false
+        collection.isUserInteractionEnabled = false
         
         collection.register(OnboardingTriptychCollectionViewCell.self,
                             forCellWithReuseIdentifier: OnboardingTriptychCollectionViewCell.cellId)
@@ -40,7 +42,8 @@ class OnboardingViewController: UIViewController {
                             forCellWithReuseIdentifier: OnboardingCrossCollectionViewCell.cellId)
         collection.register(OnboardingLinesCollectionViewCell.self,
                             forCellWithReuseIdentifier: OnboardingLinesCollectionViewCell.cellId)
-        
+        collection.register(PayWallCollectionViewCell.self,
+                            forCellWithReuseIdentifier: PayWallCollectionViewCell.cellId)
         return collection
     }()
     
@@ -54,8 +57,11 @@ class OnboardingViewController: UIViewController {
     
     private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("onboardingNextButton",
+        button.setTitle("Continue",
                         for: .normal)
+        button.layer.cornerRadius = 15
+        button.tintColor = .white
+        button.clipsToBounds = true
         button.addTarget(self,
                          action: #selector(nextButtonAction),
                          for: .touchUpInside)
@@ -65,7 +71,7 @@ class OnboardingViewController: UIViewController {
     private var mainStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.spacing = 20
+        stack.spacing = 15
         return stack
     }()
     
@@ -93,6 +99,11 @@ class OnboardingViewController: UIViewController {
         presenter?.viewDidLoad()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        nextButton.applyGradient()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
@@ -115,18 +126,18 @@ extension OnboardingViewController: OnboardingViewInputProtocol {
     }
     
     func scrollToNextScreen(indexPath: IndexPath) {
-        collectionView.scrollToItem(at: indexPath,
-                                    at: .right,
-                                    animated: true)
-        collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.collectionView.isPagingEnabled = false
+            self.collectionView.scrollToItem(at: indexPath,
+                                             at: .right,
+                                             animated: true)
+            self.collectionView.isPagingEnabled = true
+        }
     }
 }
 
 // MARK: - UICollectionViewDelegate
 extension OnboardingViewController: UICollectionViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        currentPage = Int(scrollView.contentOffset.x / UIScreen.main.bounds.width)
-    }
     
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
@@ -137,18 +148,6 @@ extension OnboardingViewController: UICollectionViewDelegate {
             guard let disappearingCell = collectionView.cellForItem(at: IndexPath(row: indexPath.row - 1,
                                                                                       section: 0)) as? OnboardingSlideProtocol else { return }
             disappearingCell.disappearing()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        didEndDisplaying cell: UICollectionViewCell,
-                        forItemAt indexPath: IndexPath) {
-        guard let disappearingCell = cell as? OnboardingSlideProtocol else { return }
-        disappearingCell.disappearing()
-        if indexPath.row > 0 {
-            guard let appearingCell = collectionView.cellForItem(at: IndexPath(row: indexPath.row - 1,
-                                                                                   section: 0)) as? OnboardingSlideProtocol else { return }
-            appearingCell.appearing()
         }
     }
 }
@@ -184,6 +183,8 @@ private extension OnboardingViewController {
     }
     
     func setupConstraints() {
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: topLabel.bottomAnchor,
                                                 constant: 20),
@@ -191,7 +192,10 @@ private extension OnboardingViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: mainStack.topAnchor,
                                                   constant: -10),
-            nextButton.heightAnchor.constraint(equalToConstant: 40),
+            nextButton.heightAnchor.constraint(equalToConstant: 50),
+            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            nextButton.widthAnchor.constraint(equalTo: view.widthAnchor,
+                                              multiplier: 0.9),
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                      constant: 20),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor,

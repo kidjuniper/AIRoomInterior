@@ -22,7 +22,7 @@ final class TopLineView: UIView {
     
     let topLabel: UILabel = {
         let label = UILabel()
-        label.text = "AppName"
+        label.text = "Archie"
         label.numberOfLines = 0
         label.font = UIFont(name: K.boldFontName,
                             size: 23)

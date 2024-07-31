@@ -8,22 +8,46 @@
 import UIKit
 
 class PayWallViewController: UIViewController {
-
+    
+    // MARK: - UI elements
+    private lazy var payWallCell: UIView = {
+        let view = PayWallView()
+        let model = OnboardingViewModel(type: .PayWall,
+                                        mainImage: UIImage(named: "emptyRoom")!,
+                                        secondaryImages: RoomStyle.allCases.map({ style in
+                UIImage(named: style.rawValue)!
+            }) + [UIImage(named: RoomStyle.modern.rawValue)!],
+                                        title: """
+    Unlock Full Access
+    to all the features
+    """,
+                                        text: """
+    Start to continue App
+    just for $6.99 per week
+    """)
+        view.configure(model: model)
+        view.appearing()
+        return view
+    }()
+    
+    // MARK: - LyfeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setUp()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Final SetUp
+    private func setUp() {
+        setUpLayout()
     }
-    */
-
+    
+    // MARK: - Appearance
+    private func setUpLayout() {
+        view.addSubview(payWallCell)
+        payWallCell.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([payWallCell.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                                     payWallCell.topAnchor.constraint(equalTo: view.topAnchor),
+                                     payWallCell.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                                     payWallCell.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
+    }
 }

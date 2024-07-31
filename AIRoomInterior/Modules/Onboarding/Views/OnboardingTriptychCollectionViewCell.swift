@@ -87,7 +87,7 @@ private extension OnboardingTriptychCollectionViewCell {
                                                                            multiplier: 2.5),
                                      
                                      labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                            constant: -100),
+                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 100 : 140)),
                                      labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                              constant: 20),
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,

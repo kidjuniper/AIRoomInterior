@@ -52,6 +52,11 @@ extension OnboardingPresenter: OnboardingPresenterProtocol {
                                                                 for: indexPath) as? OnboardingLinesCollectionViewCell
             cell?.configure(model: model)
             return cell!
+        case .PayWall:
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: PayWallCollectionViewCell.cellId,
+                                                                for: indexPath) as? PayWallCollectionViewCell
+            cell?.configure(model: model)
+            return cell!
         }
     }
     
@@ -60,7 +65,7 @@ extension OnboardingPresenter: OnboardingPresenterProtocol {
     }
     
     func nextScreenButtonTaped(currentPage: Int) {
-        if currentPage >= 3 {
+        if currentPage >= 4 {
             getNextVC()
             return
         }

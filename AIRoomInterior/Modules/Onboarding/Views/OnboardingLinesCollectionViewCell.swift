@@ -99,7 +99,7 @@ private extension OnboardingLinesCollectionViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                            constant: -100),
+                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 90 : 140)),
                                      labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                              constant: 20),
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
@@ -109,21 +109,22 @@ private extension OnboardingLinesCollectionViewCell {
         contentView.addSubview(bottomImagesStack)
         bottomImagesStack.translatesAutoresizingMaskIntoConstraints = false
         bottomStackCenterXConstraint = bottomImagesStack.centerXAnchor.constraint(equalTo: centerXAnchor,
-                                                                                 constant: 120)
+                                                                                  constant: 120)
         
         NSLayoutConstraint.activate([bottomImagesStack.bottomAnchor.constraint(equalTo: labelStackView.topAnchor,
-                                                                              constant: -20),
+                                                                               constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 20 : 80)),
                                      bottomStackCenterXConstraint!,
-                                     bottomImagesStack.widthAnchor.constraint(equalTo: widthAnchor),
+                                     bottomImagesStack.widthAnchor.constraint(equalTo: widthAnchor,
+                                                                              multiplier: 1.05),
                                      bottomImagesStack.heightAnchor.constraint(equalToConstant: 90)])
         
         contentView.addSubview(midImagesStack)
         midImagesStack.translatesAutoresizingMaskIntoConstraints = false
         midStackCenterXConstraint = midImagesStack.centerXAnchor.constraint(equalTo: centerXAnchor,
-                                                                                 constant: -120)
+                                                                            constant: -120)
         
         NSLayoutConstraint.activate([midImagesStack.bottomAnchor.constraint(equalTo: bottomImagesStack.topAnchor,
-                                                                           constant: -10),
+                                                                            constant: -UIScreen.main.bounds.height * 0.025),
                                      midStackCenterXConstraint!,
                                      midImagesStack.widthAnchor.constraint(equalTo: widthAnchor,
                                                                            multiplier: 1.34),
@@ -133,12 +134,13 @@ private extension OnboardingLinesCollectionViewCell {
         topImagesStack.translatesAutoresizingMaskIntoConstraints = false
         midImagesStack.translatesAutoresizingMaskIntoConstraints = false
         topStackCenterXConstraint = topImagesStack.centerXAnchor.constraint(equalTo: centerXAnchor,
-                                                                                 constant: 120)
+                                                                            constant: 120)
         
         NSLayoutConstraint.activate([topImagesStack.bottomAnchor.constraint(equalTo: midImagesStack.topAnchor,
-                                                                           constant: -10),
+                                                                            constant: -UIScreen.main.bounds.height * 0.025),
                                      topStackCenterXConstraint!,
-                                     topImagesStack.widthAnchor.constraint(equalTo: widthAnchor),
+                                     topImagesStack.widthAnchor.constraint(equalTo: widthAnchor,
+                                                                           multiplier: 1.05),
                                      topImagesStack.heightAnchor.constraint(equalToConstant: 90)])
         
     }
@@ -211,15 +213,18 @@ extension OnboardingLinesCollectionViewCell: OnboardingSlideProtocol {
             [self.topImagesStack,
              self.midImagesStack,
              self.bottomImagesStack].forEach { view in
-                view.layer.opacity = 0
+                UIView.animate(withDuration: 1.5) {
+                    view.layer.opacity = 0
+                }
             }
-            
-            [self.topStackCenterXConstraint,
-             self.bottomStackCenterXConstraint].forEach { constraint in
-                constraint?.constant = 120
+            UIView.animate(withDuration: 1.5) {
+                [self.topStackCenterXConstraint,
+                 self.bottomStackCenterXConstraint].forEach { constraint in
+                    constraint?.constant = 120
+                }
+                self.midStackCenterXConstraint?.constant = -120
+                self.contentView.layoutIfNeeded()
             }
-            self.midStackCenterXConstraint?.constant = -120
-            self.contentView.layoutIfNeeded()
             self.clipsToBounds = false
         }
     }

@@ -73,13 +73,14 @@ private extension OnboardingCrossCollectionViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                            constant: -100),
+                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 100 : 140)),
                                      labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                              constant: 20),
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
                                                                               constant: -20),
                                      
-                                     mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                                     mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                                                        constant: 5),
                                      mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
                                      mainImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
                                      mainImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor,

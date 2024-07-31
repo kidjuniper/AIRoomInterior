@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct SettingsTableCellData {
+    let title: String
+    let imageName: String
+}

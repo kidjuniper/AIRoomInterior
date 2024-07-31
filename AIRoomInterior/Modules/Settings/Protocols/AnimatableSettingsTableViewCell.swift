@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
+protocol AnimatableSettingsTableViewCell: UITableViewCell {
+    func animatePressing()
+}
