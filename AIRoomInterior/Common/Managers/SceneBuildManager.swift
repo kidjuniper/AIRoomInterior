@@ -10,6 +10,7 @@ import Foundation
 protocol Buildable {
     func buildGenerateScreen() -> GenerationViewController
     func buildOnboardingScreen() -> OnboardingViewController
+    func buildSettingsScreen() -> SettingsViewController
 }
 
 final class SceneBuildManager {
@@ -17,6 +18,13 @@ final class SceneBuildManager {
 }
 
 extension SceneBuildManager: Buildable {
+    func buildSettingsScreen() -> SettingsViewController {
+        let viewController = SettingsViewController()
+        let presenter = SettingsPresenter(viewController: viewController)
+        viewController.presenter = presenter
+        return viewController
+    }
+    
     func buildOnboardingScreen() -> OnboardingViewController {
         let viewController = OnboardingViewController()
         var data: [OnboardingViewModelProtocol] = [OnboardingViewModel]()
@@ -42,6 +50,7 @@ extension SceneBuildManager: Buildable {
         let presenter = GeneratorPresenter()
         viewController.presenter = presenter
         presenter.view = viewController
+        presenter.sceneBuildManager = self
         
         return viewController
     }
