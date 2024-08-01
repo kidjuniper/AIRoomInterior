@@ -44,29 +44,43 @@ Instantly redesign
 your home with Al
 """),
                 OnboardingViewModel(type: .Cross,
-                                            mainImage: UIImage(named: "iphoneOnboarding")!,
-                                            secondaryImages: [UIImage(named: "samplesLine")!],
-                                            title: """
-Take a photo 
+                                    mainImage: UIImage(named: "iphoneOnboarding")!,
+                                    secondaryImages: [UIImage(named: "samplesLine")!],
+                                    title: """
+Take a photo
 of your room
 """,
-                                            text: """
+                                    text: """
 Choose a style
 to design your room
 """),
                 OnboardingViewModel(type: .Lines,
-                                            mainImage: UIImage(named: "center")!,
+                                    mainImage: UIImage(named: "center")!,
                                     secondaryImages: RoomStyle.allCases.map({ style in
             UIImage(named: style.rawValue)!
         }) + [UIImage(named: RoomStyle.modern.rawValue)!],
-                                            title: """
+                                    title: """
 One tap,
 infinite designs
 """,
-                                            text: """
+                                    text: """
 Get instant, detailed, and accurate interior
 design options
-""")]
+"""),
+                OnboardingViewModel(type: .PayWall,
+                                    mainImage: UIImage(named: "emptyRoom")!,
+                                    secondaryImages: RoomStyle.allCases.map({ style in
+            UIImage(named: style.rawValue)!
+        }) + [UIImage(named: RoomStyle.modern.rawValue)!],
+                                    title: """
+Unlock Full Access
+to all the features
+""",
+                                    text: """
+Start to continue App
+just for $6.99 per week
+""")
+        ]
     }
 }
 
@@ -74,4 +88,5 @@ enum OnboardingSlideType {
     case Triptych
     case Cross
     case Lines
+    case PayWall
 }

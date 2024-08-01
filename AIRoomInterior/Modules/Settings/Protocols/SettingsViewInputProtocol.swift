@@ -9,5 +9,6 @@ import Foundation
 import UIKit
 
 protocol SettingsViewInputProtocol: UIViewController {
-    
+    func showRatingRequest()
+    func goBack()
 }

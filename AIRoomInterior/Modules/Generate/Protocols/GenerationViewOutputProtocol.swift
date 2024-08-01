@@ -15,5 +15,7 @@ protocol GenerationViewOutputProtocol {
     func settedDescription(text: String)
     func selectedImage(image: UIImage)
     func tappedImageSelection()
+    func tappedSetttings()
     func generationPressed()
+    func tappedPro()
 }

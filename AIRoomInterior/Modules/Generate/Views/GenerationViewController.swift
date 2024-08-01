@@ -177,6 +177,7 @@ it in text.
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.isHidden = true
         setUp()
     }
     
@@ -206,6 +207,7 @@ it in text.
     private func setUpSubviews() {
         view.addSubview(topLineView)
         topLineView.translatesAutoresizingMaskIntoConstraints = false
+        topLineView.delegate = self
         NSLayoutConstraint.activate([topLineView.topAnchor.constraint(equalTo: view.topAnchor,
                                                                       constant: 66),
                                      topLineView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
@@ -218,8 +220,7 @@ it in text.
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([scrollView.topAnchor.constraint(equalTo: topLineView.bottomAnchor,
                                                                      constant: 40),
-                                     scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
-                                                                         constant: 15),
+                                     scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                                      scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                                      scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
                                                                         constant: -45)])
@@ -300,10 +301,21 @@ it in text.
         generateButton.addTarget(self,
                                  action: #selector(generatePressed),
                                  for: .primaryActionTriggered)
+        
     }
     
     @objc func generatePressed() {
         presenter?.generationPressed()
+    }
+}
+
+extension GenerationViewController: TopLineViewDelegate {
+    func subscriptionButtonPressed() {
+        presenter?.tappedPro()
+    }
+    
+    func settingsButtonPressed() {
+        presenter?.tappedSetttings()
     }
 }
 
@@ -330,6 +342,10 @@ extension GenerationViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension GenerationViewController: GenerationViewInputProtocol {
+    func showPayWall() {
+        
+    }
+    
     func showEndOfImageProcessing(withImage image: UIImage) {
         promtInputView.imageSetted(image: image)
     }

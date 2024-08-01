@@ -11,6 +11,7 @@ import UIKit
 final class GeneratorPresenter: NSObject,
                                 GeneratorPresenterProtocol {
     weak var view: GenerationViewInputProtocol?
+    var sceneBuildManager: Buildable?
     
     // вынести в константы
     private var promtDescription: String = ""
@@ -96,6 +97,22 @@ extension GeneratorPresenter: UICollectionViewDelegateFlowLayout {
 }
 
 extension GeneratorPresenter: GenerationViewOutputProtocol {
+    func tappedPro() {
+        let newViewController = sceneBuildManager!.buildPayWallScreen()
+        newViewController.modalTransitionStyle = .coverVertical
+        newViewController.modalPresentationStyle = .pageSheet
+        UIApplication.shared.windows.first?.rootViewController?.present(newViewController,
+                                                                        animated: true)
+    }
+    
+    func tappedSetttings() {
+        let newViewController = sceneBuildManager!.buildSettingsScreen()
+        newViewController.modalTransitionStyle = .flipHorizontal
+        newViewController.modalPresentationStyle = .fullScreen
+        UIApplication.shared.windows.first?.rootViewController?.present(newViewController,
+                                                                        animated: true)
+    }
+    
     func tappedImageSelection() {
         view?.showImageSelector()
     }

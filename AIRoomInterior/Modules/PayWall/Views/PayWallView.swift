@@ -1,0 +1,158 @@
+//
+//  PayWallView.swift
+//  AIRoomInterior
+//
+//  Created by Nikita Stepanov on 31.07.2024.
+//
+
+import Foundation
+import UIKit
+
+final class PayWallView: UIView {
+    // MARK: - SubViews
+    private let mainImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
+    private let bottomImagesStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.distribution = .fillEqually
+        return stack
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont(name: K.boldFontName, size: 23)
+        label.textColor = .white
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private let textLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont(name: K.boldFontName, size: 15)
+        label.textColor = .darkGray
+        label.textAlignment = .center
+        return label
+    }()
+    
+    private var labelStackView = UIStackView()
+    
+    // MARK: - Animated Constraint
+    private var bottomStackCenterXConstraint: NSLayoutConstraint?
+    
+    // MARK: - Properties
+    static let cellId = "PayWallCollectionViewCell"
+    
+    // MARK: - Initializer
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
+
+// MARK: - Appearance
+private extension PayWallView {
+    func setupUI() {
+        backgroundColor = .black
+        labelStackView = .init(arrangedSubviews: [titleLabel,
+                                                  textLabel],
+                               axis: .vertical,
+                               spacing: 20)
+        
+        addSubview(labelStackView)
+        labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 90 : 140)),
+                                     labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                                             constant: 20),
+                                     labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                                              constant: -20),
+                                     labelStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
+        ])
+        
+        addSubview(bottomImagesStack)
+        bottomImagesStack.translatesAutoresizingMaskIntoConstraints = false
+        bottomStackCenterXConstraint = bottomImagesStack.centerXAnchor.constraint(equalTo: centerXAnchor,
+                                                                                 constant: 120)
+        
+        NSLayoutConstraint.activate([bottomImagesStack.bottomAnchor.constraint(equalTo: labelStackView.topAnchor,
+                                                                               constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 20 : 80)),
+                                     bottomStackCenterXConstraint!,
+                                     bottomImagesStack.widthAnchor.constraint(equalTo: widthAnchor,
+                                                                              multiplier: 1.3),
+                                     bottomImagesStack.heightAnchor.constraint(equalToConstant: 90)
+        ])
+        
+        addSubview(mainImageView)
+        mainImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([mainImageView.bottomAnchor.constraint(equalTo: bottomImagesStack.topAnchor,
+                                                                               constant: -20),
+                                     bottomStackCenterXConstraint!,
+                                     mainImageView.widthAnchor.constraint(equalTo: widthAnchor,
+                                                                          multiplier: 0.8),
+                                     mainImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                                     mainImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 240),
+                                     mainImageView.topAnchor.constraint(equalTo: topAnchor,
+                                                                       constant: 100)
+        ])
+    }
+    
+    private func setUpStacks(withImages images: [UIImage]) {
+        if images.count > 4 {
+            bottomImagesStack.removeArrangedSubviews()
+            bottomImagesStack.uppendImageViews(images: Array(images[0...4]))
+        }
+        else {
+            print("Not enought images setted to setUp OnboardingLinesCollectionViewCell")
+        }
+    }
+}
+
+// MARK: - OnboardingSlideProtocol
+extension PayWallView {
+    public func configure(model: OnboardingViewModelProtocol) {
+        bottomImagesStack.layer.opacity = 0
+        setUpStacks(withImages: model.secondaryImages)
+        titleLabel.text = model.title
+        textLabel.text = model.text
+        mainImageView.image = model.mainImage
+    }
+    
+    public func appearing() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.8) {
+                self.bottomImagesStack.layer.opacity = 1
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.clipsToBounds = true
+            }
+            UIView.animate(withDuration: 1.5) {
+                self.bottomStackCenterXConstraint?.constant = 0
+                self.layoutIfNeeded()
+            }
+        }
+    }
+    
+    public func disappearing() {
+        DispatchQueue.main.async {
+            self.bottomImagesStack.layer.opacity = 0
+            self.bottomStackCenterXConstraint?.constant = -120
+            self.layoutIfNeeded()
+            self.clipsToBounds = false
+        }
+    }
+}

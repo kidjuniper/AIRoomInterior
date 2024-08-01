@@ -8,7 +8,7 @@
 import UIKit
 
 class SettingsTableViewCell: UITableViewCell {
-    // MARK: - Properties
+    
     static let cellId = "SettingsTableViewCell"
     
     // MARK: - UI Components
@@ -20,15 +20,19 @@ class SettingsTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let shareButton: UIButton = {
-        let button = UIButton(type: .system)
-        let shareImage = UIImage(systemName: "square.and.arrow.up")
-        button.setImage(shareImage, for: .normal)
-        button.setTitle(" Share this App", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private lazy var iconImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
+        return imageView
+    }()
+    
+    private lazy var titleLable: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: K.boldFontName, size: 15)
+        label.textColor = .white
+        label.textAlignment = .left
+        return label
     }()
     
     // MARK: - Initializers
@@ -43,23 +47,55 @@ class SettingsTableViewCell: UITableViewCell {
     
     // MARK: - UI Setup
     private func setupUI() {
+        backgroundColor = .clear
+        selectionStyle = .none
+        
         contentView.addSubview(containerView)
-        containerView.addSubview(shareButton)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(iconImage)
+        iconImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor,
+                                               constant: 3),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor,
+                                                 constant: -3),
             
-            shareButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            shareButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16)
+            iconImage.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            iconImage.leadingAnchor.constraint(equalTo: containerView.leadingAnchor,
+                                               constant: 10),
+            iconImage.heightAnchor.constraint(equalToConstant: 24),
+            iconImage.widthAnchor.constraint(equalToConstant: 24)
+        ])
+        
+        containerView.addSubview(titleLable)
+        titleLable.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLable.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            titleLable.leadingAnchor.constraint(equalTo: iconImage.trailingAnchor,
+                                               constant: 10)
         ])
     }
     
     // MARK: - Configuration
-    func configure() {
-        // Здесь вы можете добавить любую логику конфигурации, если это необходимо.
+    func configure(withData data: SettingsTableCellData) {
+        titleLable.text = data.title
+        iconImage.image = UIImage(systemName: data.imageName)
     }
 }
 
+extension SettingsTableViewCell: AnimatableSettingsTableViewCell {
+    func animatePressing() {
+        UIView.animate(withDuration: 0.02) {
+            self.contentView.alpha = 0.5
+        } completion: { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.contentView.alpha = 1
+            }
+        }
+
+    }
+}
