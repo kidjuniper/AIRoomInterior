@@ -70,6 +70,9 @@
 		A4234D902C59EBA10011DD48 /* PayWallCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D8F2C59EBA10011DD48 /* PayWallCollectionViewCell.swift */; };
 		A4234D972C59FC580011DD48 /* PayWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D962C59FC580011DD48 /* PayWallViewController.swift */; };
 		A4234D992C59FEC30011DD48 /* PayWallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D982C59FEC30011DD48 /* PayWallView.swift */; };
+		A4234D9B2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D9A2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift */; };
+		A4234D9D2C5BC13E0011DD48 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D9C2C5BC13E0011DD48 /* PurchaseManager.swift */; };
+		A4234DA02C5BE6B00011DD48 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D9F2C5BE6B00011DD48 /* CustomPageControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +141,9 @@
 		A4234D8F2C59EBA10011DD48 /* PayWallCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4234D962C59FC580011DD48 /* PayWallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallViewController.swift; sourceTree = "<group>"; };
 		A4234D982C59FEC30011DD48 /* PayWallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallView.swift; sourceTree = "<group>"; };
+		A4234D9A2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeccessaryInAppButtonsView.swift; sourceTree = "<group>"; };
+		A4234D9C2C5BC13E0011DD48 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
+		A4234D9F2C5BE6B00011DD48 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				A4234D422C555D4B0011DD48 /* OnboardingViewController.swift */,
+				A4234D9F2C5BE6B00011DD48 /* CustomPageControl.swift */,
 				A4234D582C57A7DF0011DD48 /* OnboardingTriptychCollectionViewCell.swift */,
 				A4234D5C2C57D1CF0011DD48 /* OnboardingCrossCollectionViewCell.swift */,
 				A4234D5E2C58F9AF0011DD48 /* OnboardingLinesCollectionViewCell.swift */,
@@ -401,6 +408,7 @@
 			children = (
 				A411D9E12C50036B00519312 /* SceneBuildManager.swift */,
 				A4234D892C59E51F0011DD48 /* RatingManager.swift */,
+				A4234D9C2C5BC13E0011DD48 /* PurchaseManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -435,6 +443,7 @@
 			children = (
 				A4234D962C59FC580011DD48 /* PayWallViewController.swift */,
 				A4234D982C59FEC30011DD48 /* PayWallView.swift */,
+				A4234D9A2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -553,11 +562,13 @@
 				A411D9EB2C5165B400519312 /* ImageAnalysisManager.swift in Sources */,
 				A4234D5B2C57CB6A0011DD48 /* OnboardingSlideProtocol.swift in Sources */,
 				A4234D472C56C2EA0011DD48 /* TopLineViewProtocol.swift in Sources */,
+				A4234D9D2C5BC13E0011DD48 /* PurchaseManager.swift in Sources */,
 				A4234D8E2C59E89C0011DD48 /* SettingsTableCellData.swift in Sources */,
 				A4234D572C57A0A40011DD48 /* OnboaringPresenterProtocol.swift in Sources */,
 				A4234D5F2C58F9AF0011DD48 /* OnboardingLinesCollectionViewCell.swift in Sources */,
 				A4234D3C2C54EBA70011DD48 /* ResultViewProtocol.swift in Sources */,
 				A411D9C72C4D947A00519312 /* RoomType.swift in Sources */,
+				A4234DA02C5BE6B00011DD48 /* CustomPageControl.swift in Sources */,
 				A411D9DC2C4FB3AF00519312 /* RoomTypeCollectionViewCell.swift in Sources */,
 				A411D9A82C4D883D00519312 /* AppDelegate.swift in Sources */,
 				A4234D7D2C5929200011DD48 /* SettingsViewOutputProtocol.swift in Sources */,
@@ -576,6 +587,7 @@
 				A411D9D82C4EF17100519312 /* GeneratorPresenter.swift in Sources */,
 				A4234D672C59144F0011DD48 /* RoomStyleCellData.swift in Sources */,
 				A411D9CE2C4D972800519312 /* Constants.swift in Sources */,
+				A4234D9B2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift in Sources */,
 				A411D9E92C505CCA00519312 /* KandinskyAPIManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,7 +658,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -703,7 +715,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -728,6 +740,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -760,6 +773,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

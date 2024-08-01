@@ -66,7 +66,7 @@ class OnboardingTriptychCollectionViewCell: UICollectionViewCell {
 // MARK: - Appearance
 private extension OnboardingTriptychCollectionViewCell {
     func setupUI() {
-        backgroundColor = .black
+        contentView.backgroundColor = UIColor(named: "Black")
         labelStackView = .init(arrangedSubviews: [titleLabel,
                                                   textLabel],
                                axis: .vertical,
@@ -147,15 +147,15 @@ extension OnboardingTriptychCollectionViewCell: OnboardingSlideProtocol {
         }
     }
     
-    public func disappearing() {
-        DispatchQueue.main.async {
-            [self.rightImageView,
-             self.mainImageView,
-             self.leftImageView].forEach { view in
-                UIView.animate(withDuration: 1.5) {
-                    view.layer.opacity = 0
-                }
-            }
-        }
-    }
+//    public func disappearing() {
+//        DispatchQueue.main.async {
+//            [self.rightImageView,
+//             self.mainImageView,
+//             self.leftImageView].forEach { view in
+//                UIView.animate(withDuration: 1.5) {
+//                    view.layer.opacity = 0
+//                }
+//            }
+//        }
+//    }
 }

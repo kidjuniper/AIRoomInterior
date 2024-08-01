@@ -65,7 +65,10 @@ extension OnboardingPresenter: OnboardingPresenterProtocol {
     }
     
     func nextScreenButtonTaped(currentPage: Int) {
-        if currentPage >= 4 {
+        if currentPage == 3 {
+            viewController?.showInAppAttributes()
+        }
+        if currentPage == 4 {
             getNextVC()
             return
         }
@@ -77,6 +80,9 @@ extension OnboardingPresenter: OnboardingPresenterProtocol {
     func getNextVC() {
         let mainViewController = sceneBuildManager.buildGenerateScreen()
         let rootViewController = UINavigationController(rootViewController: mainViewController)
-        UIApplication.shared.windows.first?.rootViewController = rootViewController
+        let allScenes = UIApplication.shared.connectedScenes
+        let scene = allScenes.first { $0.activationState == .foregroundActive }
+        if let windowScene = scene as? UIWindowScene { windowScene.keyWindow?.rootViewController = rootViewController
+        }
     }
 }

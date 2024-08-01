@@ -30,6 +30,7 @@ class PayWallCollectionViewCell: UICollectionViewCell {
 // MARK: - Appearance
 private extension PayWallCollectionViewCell {
     private func setUpUI() {
+        contentView.backgroundColor = UIColor(named: "Black")
         contentView.addSubview(payWallView)
         payWallView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -50,7 +51,7 @@ extension PayWallCollectionViewCell: OnboardingSlideProtocol {
         payWallView.appearing()
     }
     
-    public func disappearing() {
-        payWallView.disappearing()
-    }
+//    public func disappearing() {
+//        payWallView.disappearing()
+//    }
 }

@@ -101,16 +101,22 @@ extension GeneratorPresenter: GenerationViewOutputProtocol {
         let newViewController = sceneBuildManager!.buildPayWallScreen()
         newViewController.modalTransitionStyle = .coverVertical
         newViewController.modalPresentationStyle = .pageSheet
-        UIApplication.shared.windows.first?.rootViewController?.present(newViewController,
-                                                                        animated: true)
+        let allScenes = UIApplication.shared.connectedScenes
+        let scene = allScenes.first { $0.activationState == .foregroundActive }
+        if let windowScene = scene as? UIWindowScene { windowScene.keyWindow?.rootViewController?.present(newViewController,
+                                                                                      animated: true)
+        }
     }
     
     func tappedSetttings() {
         let newViewController = sceneBuildManager!.buildSettingsScreen()
         newViewController.modalTransitionStyle = .flipHorizontal
         newViewController.modalPresentationStyle = .fullScreen
-        UIApplication.shared.windows.first?.rootViewController?.present(newViewController,
-                                                                        animated: true)
+        let allScenes = UIApplication.shared.connectedScenes
+        let scene = allScenes.first { $0.activationState == .foregroundActive }
+        if let windowScene = scene as? UIWindowScene { windowScene.keyWindow?.rootViewController?.present(newViewController,
+                                                                                      animated: true)
+        }
     }
     
     func tappedImageSelection() {

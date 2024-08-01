@@ -50,7 +50,6 @@ final class TopLineView: UIView {
                                               left: 0,
                                               bottom: 5,
                                               right: 5)
-        
         button.backgroundColor = .black
         button.layer.cornerRadius = 12
         button.layer.borderWidth = 1

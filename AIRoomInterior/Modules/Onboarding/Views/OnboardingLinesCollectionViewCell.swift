@@ -89,7 +89,7 @@ class OnboardingLinesCollectionViewCell: UICollectionViewCell {
 // MARK: - Appearance
 private extension OnboardingLinesCollectionViewCell {
     func setupUI() {
-        backgroundColor = .black
+        contentView.backgroundColor = UIColor(named: "Black")
         labelStackView = .init(arrangedSubviews: [titleLabel,
                                                   textLabel],
                                axis: .vertical,
@@ -208,24 +208,24 @@ extension OnboardingLinesCollectionViewCell: OnboardingSlideProtocol {
         }
     }
     
-    public func disappearing() {
-        DispatchQueue.main.async {
-            [self.topImagesStack,
-             self.midImagesStack,
-             self.bottomImagesStack].forEach { view in
-                UIView.animate(withDuration: 1.5) {
-                    view.layer.opacity = 0
-                }
-            }
-            UIView.animate(withDuration: 1.5) {
-                [self.topStackCenterXConstraint,
-                 self.bottomStackCenterXConstraint].forEach { constraint in
-                    constraint?.constant = 120
-                }
-                self.midStackCenterXConstraint?.constant = -120
-                self.contentView.layoutIfNeeded()
-            }
-            self.clipsToBounds = false
-        }
-    }
+//    public func disappearing() {
+//        DispatchQueue.main.async {
+//            [self.topImagesStack,
+//             self.midImagesStack,
+//             self.bottomImagesStack].forEach { view in
+//                UIView.animate(withDuration: 1.5) {
+//                    view.layer.opacity = 0
+//                }
+//            }
+//            UIView.animate(withDuration: 1.5) {
+//                [self.topStackCenterXConstraint,
+//                 self.bottomStackCenterXConstraint].forEach { constraint in
+//                    constraint?.constant = 120
+//                }
+//                self.midStackCenterXConstraint?.constant = -120
+//                self.contentView.layoutIfNeeded()
+//            }
+//            self.clipsToBounds = false
+//        }
+//    }
 }

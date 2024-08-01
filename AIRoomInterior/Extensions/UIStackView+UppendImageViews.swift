@@ -18,4 +18,16 @@ extension UIStackView {
             addArrangedSubview(imageView)
         }
     }
+    
+    func uppendTitlelabels(withTitles titles: [String]) {
+        for i in titles {
+            let label = UILabel()
+            label.text = i
+            label.textAlignment = .center
+            label.font = UIFont(name: K.regularFontName,
+                                size: 12)
+            label.textColor = .white
+            addArrangedSubview(label)
+        }
+    }
 }
