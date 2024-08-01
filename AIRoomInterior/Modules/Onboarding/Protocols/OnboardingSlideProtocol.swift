@@ -10,6 +10,6 @@ import UIKit
 
 protocol OnboardingSlideProtocol: UICollectionViewCell {
     func appearing()
-    func disappearing()
+//    func disappearing()
     func configure(model: OnboardingViewModelProtocol)
 }

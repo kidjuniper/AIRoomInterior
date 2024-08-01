@@ -24,6 +24,14 @@ final class PayWallView: UIView {
         return stack
     }()
     
+    private let subtitlesStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.distribution = .fillEqually
+        return stack
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
@@ -46,6 +54,7 @@ final class PayWallView: UIView {
     
     // MARK: - Animated Constraint
     private var bottomStackCenterXConstraint: NSLayoutConstraint?
+    private var subtitlesStackCenterXConstraint: NSLayoutConstraint?
     
     // MARK: - Properties
     static let cellId = "PayWallCollectionViewCell"
@@ -64,7 +73,7 @@ final class PayWallView: UIView {
 // MARK: - Appearance
 private extension PayWallView {
     func setupUI() {
-        backgroundColor = .black
+        backgroundColor = UIColor(named: "Black")
         labelStackView = .init(arrangedSubviews: [titleLabel,
                                                   textLabel],
                                axis: .vertical,
@@ -95,6 +104,16 @@ private extension PayWallView {
                                      bottomImagesStack.heightAnchor.constraint(equalToConstant: 90)
         ])
         
+        addSubview(subtitlesStack)
+        subtitlesStack.translatesAutoresizingMaskIntoConstraints = false
+        subtitlesStackCenterXConstraint = subtitlesStack.centerXAnchor.constraint(equalTo: centerXAnchor,
+                                                                                     constant: 120)
+        
+        NSLayoutConstraint.activate([subtitlesStack.topAnchor.constraint(equalTo: bottomImagesStack.bottomAnchor),
+                                     subtitlesStack.widthAnchor.constraint(equalTo: widthAnchor,
+                                                                           multiplier: 1.3),
+                                     subtitlesStackCenterXConstraint!])
+        
         addSubview(mainImageView)
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -110,7 +129,7 @@ private extension PayWallView {
         ])
     }
     
-    private func setUpStacks(withImages images: [UIImage]) {
+    private func setUpImagesStack(withImages images: [UIImage]) {
         if images.count > 4 {
             bottomImagesStack.removeArrangedSubviews()
             bottomImagesStack.uppendImageViews(images: Array(images[0...4]))
@@ -119,13 +138,24 @@ private extension PayWallView {
             print("Not enought images setted to setUp OnboardingLinesCollectionViewCell")
         }
     }
+    
+    private func setUpSubtitlesStack(withTitles titles: [String]) {
+        if titles.count > 4 {
+            subtitlesStack.removeArrangedSubviews()
+            subtitlesStack.uppendTitlelabels(withTitles: Array(titles[0...4]))
+        }
+        else {
+            print("Not enought subtitles setted to setUp OnboardingLinesCollectionViewCell")
+        }
+    }
 }
 
 // MARK: - OnboardingSlideProtocol
 extension PayWallView {
     public func configure(model: OnboardingViewModelProtocol) {
         bottomImagesStack.layer.opacity = 0
-        setUpStacks(withImages: model.secondaryImages)
+        setUpImagesStack(withImages: model.secondaryImages)
+        setUpSubtitlesStack(withTitles: model.subTitles ?? [])
         titleLabel.text = model.title
         textLabel.text = model.text
         mainImageView.image = model.mainImage
@@ -142,17 +172,18 @@ extension PayWallView {
             }
             UIView.animate(withDuration: 1.5) {
                 self.bottomStackCenterXConstraint?.constant = 0
+                self.subtitlesStackCenterXConstraint?.constant = 0
                 self.layoutIfNeeded()
             }
         }
     }
     
-    public func disappearing() {
-        DispatchQueue.main.async {
-            self.bottomImagesStack.layer.opacity = 0
-            self.bottomStackCenterXConstraint?.constant = -120
-            self.layoutIfNeeded()
-            self.clipsToBounds = false
-        }
-    }
+//    public func disappearing() {
+//        DispatchQueue.main.async {
+//            self.bottomImagesStack.layer.opacity = 0
+//            self.bottomStackCenterXConstraint?.constant = -120
+//            self.layoutIfNeeded()
+//            self.clipsToBounds = false
+//        }
+//    }
 }

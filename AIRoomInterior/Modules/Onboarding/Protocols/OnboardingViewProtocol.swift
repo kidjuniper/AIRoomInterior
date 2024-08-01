@@ -10,5 +10,6 @@ import UIKit
 
 protocol OnboardingViewInputProtocol: UIViewController {
     func dataSetted(withPageNumber number: Int) // ??? мб две функции сделать
+    func showInAppAttributes()
     func scrollToNextScreen(indexPath: IndexPath)
 }

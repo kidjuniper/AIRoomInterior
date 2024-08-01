@@ -39,6 +39,11 @@ class PromtInputView: UIView {
         return segmented
     }()
     
+    private var modeButtonsStack: UIStackView = {
+        let stack = UIStackView()
+        return stack
+    }()
+    
     private let descriptionTextFiled: UITextView = {
         let textView = UITextView()
         textView.layer.cornerRadius = 15

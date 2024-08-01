@@ -8,16 +8,11 @@
 import Foundation
 import UIKit
 
-struct OnboardingSlide {
-    let title: String
-    let description: String
-    let imageName: String
-}
-
 protocol OnboardingViewModelProtocol {
     var type: OnboardingSlideType { get }
-    var mainImage: UIImage { get }
+    var mainImage: UIImage? { get }
     var secondaryImages: [UIImage] { get }
+    var subTitles: [String]? { get }
     var title: String { get }
     var text: String { get }
 }
@@ -25,8 +20,9 @@ protocol OnboardingViewModelProtocol {
 struct OnboardingViewModel: OnboardingViewModelProtocol {
     
     var type: OnboardingSlideType
-    var mainImage: UIImage
+    var mainImage: UIImage?
     var secondaryImages: [UIImage]
+    var subTitles: [String]?
     let title: String
     let text: String
     
@@ -71,7 +67,10 @@ design options
                                     mainImage: UIImage(named: "emptyRoom")!,
                                     secondaryImages: RoomStyle.allCases.map({ style in
             UIImage(named: style.rawValue)!
-        }) + [UIImage(named: RoomStyle.modern.rawValue)!],
+        }),
+                                    subTitles: RoomStyle.allCases.map({ style in
+            style.rawValue
+        }),
                                     title: """
 Unlock Full Access
 to all the features

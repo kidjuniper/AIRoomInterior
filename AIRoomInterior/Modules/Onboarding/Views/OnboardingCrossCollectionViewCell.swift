@@ -17,6 +17,15 @@ class OnboardingCrossCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    private let subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: K.regularFontName,
+                            size: 16)
+        label.textColor = .white
+        label.text = "Casual"
+        return label
+    }()
+    
     private let examplesImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -60,7 +69,7 @@ class OnboardingCrossCollectionViewCell: UICollectionViewCell {
 // MARK: - Appearance
 private extension OnboardingCrossCollectionViewCell {
     func setupUI() {
-        backgroundColor = .black
+        contentView.backgroundColor = UIColor(named: "Black")
         labelStackView = .init(arrangedSubviews: [titleLabel,
                                                   textLabel],
                                axis: .vertical,
@@ -69,8 +78,14 @@ private extension OnboardingCrossCollectionViewCell {
         addSubview(mainImageView)
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
         
+        addSubview(subtitleLabel)
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         addSubview(labelStackView)
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(examplesImageView)
+        examplesImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
                                                                             constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 100 : 140)),
@@ -79,21 +94,20 @@ private extension OnboardingCrossCollectionViewCell {
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
                                                                               constant: -20),
                                      
+                                     examplesImageView.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor),
+                                                                  examplesImageView.widthAnchor.constraint(equalTo: widthAnchor),
+                                                                  examplesImageView.heightAnchor.constraint(equalToConstant: 140),
+                                                                  examplesImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+                                     
+                                     subtitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                                     subtitleLabel.topAnchor.constraint(equalTo: examplesImageView.bottomAnchor),
+                                     
                                      mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,
                                                                         constant: 5),
                                      mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
                                      mainImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
                                      mainImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor,
-                                                                          multiplier: 0.35)
-        ])
-        
-        addSubview(examplesImageView)
-        examplesImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([examplesImageView.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor),
-                                     examplesImageView.widthAnchor.constraint(equalTo: widthAnchor),
-                                     examplesImageView.heightAnchor.constraint(equalToConstant: 140),
-                                     examplesImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
+                                                                          multiplier: 0.32)
         ])
     }
 }
@@ -122,14 +136,14 @@ extension OnboardingCrossCollectionViewCell: OnboardingSlideProtocol {
         }
     }
     
-    public func disappearing() {
-        DispatchQueue.main.async {
-            [self.mainImageView,
-             self.examplesImageView].forEach { view in
-                UIView.animate(withDuration: 1.5) {
-                    view.layer.opacity = 0
-                }
-            }
-        }
-    }
+//    public func disappearing() {
+//        DispatchQueue.main.async {
+//            [self.mainImageView,
+//             self.examplesImageView].forEach { view in
+//                UIView.animate(withDuration: 1.5) {
+//                    view.layer.opacity = 0
+//                }
+//            }
+//        }
+//    }
 }

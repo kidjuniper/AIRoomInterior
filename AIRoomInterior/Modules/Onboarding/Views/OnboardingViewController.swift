@@ -47,13 +47,7 @@ class OnboardingViewController: UIViewController {
         return collection
     }()
     
-    private let pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.currentPageIndicatorTintColor = .white
-        pageControl.pageIndicatorTintColor = .darkGray
-        pageControl.preferredIndicatorImage = UIImage(systemName: "xmark")
-        return pageControl
-    }()
+    private let pageControl = CustomPageControl()
     
     private lazy var nextButton: UIButton = {
         let button = UIButton(type: .system)
@@ -68,12 +62,14 @@ class OnboardingViewController: UIViewController {
         return button
     }()
     
-    private var mainStack: UIStackView = {
+    private lazy var mainStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 15
         return stack
     }()
+    
+    private lazy var inAppButtonsView = NeccessaryInAppButtonsView()
     
     // MARK: - Properties
     var presenter: OnboardingPresenterProtocol? {
@@ -120,6 +116,16 @@ class OnboardingViewController: UIViewController {
 
 // MARK: - OnboardingViewProtocol
 extension OnboardingViewController: OnboardingViewInputProtocol {
+    func showInAppAttributes() {
+        inAppButtonsView.delegate = self
+        view.addSubview(inAppButtonsView)
+        inAppButtonsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([inAppButtonsView.topAnchor.constraint(equalTo: nextButton.bottomAnchor),
+                                     inAppButtonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                                     inAppButtonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                                     inAppButtonsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
+    }
+    
     func dataSetted(withPageNumber number: Int) {
         collectionView.reloadData()
         pageControl.numberOfPages = number
@@ -136,6 +142,20 @@ extension OnboardingViewController: OnboardingViewInputProtocol {
     }
 }
 
+extension OnboardingViewController: NeccessaryInAppButtonsViewDelegate {
+    func privacyPolicyTapped() {
+        print("tapped")
+    }
+    
+    func restorePurchaseTapped() {
+        print("tapped")
+    }
+    
+    func termsOfUseTapped() {
+        print("tapped")
+    }
+}
+
 // MARK: - UICollectionViewDelegate
 extension OnboardingViewController: UICollectionViewDelegate {
     
@@ -144,11 +164,11 @@ extension OnboardingViewController: UICollectionViewDelegate {
                         forItemAt indexPath: IndexPath) {
         guard let appearingCell = cell as? OnboardingSlideProtocol else { return }
         appearingCell.appearing()
-        if indexPath.row > 0 {
-            guard let disappearingCell = collectionView.cellForItem(at: IndexPath(row: indexPath.row - 1,
-                                                                                      section: 0)) as? OnboardingSlideProtocol else { return }
-            disappearingCell.disappearing()
-        }
+//        if indexPath.row > 0 {
+//            guard let disappearingCell = collectionView.cellForItem(at: IndexPath(row: indexPath.row - 1,
+//                                                                                      section: 0)) as? OnboardingSlideProtocol else { return }
+//            disappearingCell.disappearing()
+//        }
     }
 }
 
@@ -158,6 +178,7 @@ private extension OnboardingViewController {
         setUpStackViews()
         setupViews()
         setupConstraints()
+        view.backgroundColor = UIColor(named: "Black")
     }
     
     func setUpStackViews() {
@@ -193,15 +214,14 @@ private extension OnboardingViewController {
             collectionView.bottomAnchor.constraint(equalTo: mainStack.topAnchor,
                                                   constant: -10),
             nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextButton.widthAnchor.constraint(equalTo: view.widthAnchor,
-                                              multiplier: 0.9),
+            
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor,
                                                      constant: 20),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor,
                                                       constant: -20),
             mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-                                                    constant: -20)
+                                                    constant: -30),
+            mainStack.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
 }

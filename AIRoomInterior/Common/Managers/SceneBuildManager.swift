@@ -38,6 +38,7 @@ extension SceneBuildManager: Buildable {
             data.append(OnboardingViewModel(type: oneScreen.type,
                                              mainImage: oneScreen.mainImage,
                                              secondaryImages: oneScreen.secondaryImages,
+                                            subTitles: oneScreen.subTitles,
                                              title: oneScreen.title,
                                              text: oneScreen.text))
         })

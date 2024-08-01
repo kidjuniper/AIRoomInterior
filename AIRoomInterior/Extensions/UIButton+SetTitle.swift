@@ -16,4 +16,12 @@ extension UIButton {
                                                                                                 size: 15)!])
         self.setAttributedTitle(prettyString, for: state)
     }
+    
+    func setLightTitle(_ title: String?,
+                  for state: UIControl.State) {
+        let prettyString = NSAttributedString(string: title ?? "",
+                                              attributes: [NSAttributedString.Key.font : UIFont(name: K.regularFontName,
+                                                                                                size: 12)!])
+        self.setAttributedTitle(prettyString, for: state)
+    }
 }
