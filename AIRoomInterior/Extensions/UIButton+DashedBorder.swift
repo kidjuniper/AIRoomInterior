@@ -13,7 +13,7 @@ extension UIButton {
             let shapeLayer = CAShapeLayer()
             shapeLayer.strokeColor = UIColor.lightGray.cgColor
             shapeLayer.lineWidth = 1
-            shapeLayer.lineDashPattern = [4, 4]
+            shapeLayer.lineDashPattern = [10, 10]
             shapeLayer.frame = bounds
             shapeLayer.fillColor = nil
             shapeLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 15).cgPath

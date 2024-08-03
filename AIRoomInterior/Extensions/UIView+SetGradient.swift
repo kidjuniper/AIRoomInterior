@@ -20,13 +20,18 @@ extension UIView {
         gradientLayer.endPoint = endPoint
         gradientLayer.frame = bounds
         gradientLayer.cornerRadius = cornerRadius
-        
+        if let gradientLayer = layer.sublayers?.first(where: { $0 is CAGradientLayer }) as? CAGradientLayer {
+            gradientLayer.removeFromSuperlayer()
+        }
         layer.insertSublayer(gradientLayer, at: 0)
     }
     
     func updateGradientFrame() {
         if let gradientLayer = layer.sublayers?.first(where: { $0 is CAGradientLayer }) as? CAGradientLayer {
             gradientLayer.frame = bounds
+            gradientLayer.removeFromSuperlayer()
+            layer.insertSublayer(gradientLayer,
+                                 at: 0)
         }
     }
 }

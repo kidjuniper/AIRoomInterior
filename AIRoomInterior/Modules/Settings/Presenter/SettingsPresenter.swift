@@ -7,9 +7,11 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 class SettingsPresenter: NSObject {
     weak var viewController: SettingsViewInputProtocol?
+    var sceneBuildManager: Buildable?
     
     // MARK: - Private Properties
     private var tableDataArray: [SettingsTableCellData] = []
@@ -30,6 +32,15 @@ class SettingsPresenter: NSObject {
 }
 
 extension SettingsPresenter: SettingsPresenterProtocol {
+    func premiumTapped() {
+        DispatchQueue.main.async {
+            let newViewController = self.sceneBuildManager!.buildPayWallScreen()
+            newViewController.modalPresentationStyle = .fullScreen
+            newViewController.modalTransitionStyle = .coverVertical
+            self.viewController?.present(newViewController, animated: true)
+        }
+    }
+    
     func backButtonPressed() {
         viewController?.goBack()
     }
@@ -41,6 +52,32 @@ extension SettingsPresenter: SettingsPresenterProtocol {
         default:
             processTNPBlock(index: indexPath.row)
         }
+    }
+    
+    func privacyPolicyTapped() {
+        if let url = URL(string: "https://telegra.ph/Archie---AI-Home-Design-07-31") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func restorePurchaseTapped() {
+        Task {
+            do {
+                try await AppStore.sync()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func termsOfUseTapped() {
+        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func backPressed() {
+        viewController?.goBack()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,6 +107,11 @@ extension SettingsPresenter {
     }
     
     private func processTNPBlock(index: Int) {
-        
+        switch index {
+        case 0:
+            termsOfUseTapped()
+        default:
+            privacyPolicyTapped()
+        }
     }
 }

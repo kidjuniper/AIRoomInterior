@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 struct K {
-    static let boldFontName = "Inter Bold"
-    static let regularFontName = "Inter"
+    static let boldFontName = "Geometria Bold"
+    static let regularFontName = "Geometria Light"
     
     static let profileImageName = "profileImage"
     static let premiumBackgroundImageName = "backgroundImage"
@@ -19,5 +19,8 @@ struct K {
         style.rawValue
     }
     
-    static let samplesImageNames = ["sample1", "sample2", "sample3", "sample4"]
+    static let samplesImageNames = ["sample1",
+                                    "sample2",
+                                    "sample3",
+                                    "sample4"]
 }

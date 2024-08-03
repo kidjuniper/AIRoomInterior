@@ -10,7 +10,7 @@ import UIKit
 class OnboardingViewController: UIViewController {
     
     // MARK: - UI components
-    let topLabel: UILabel = {
+    lazy var topLabel: UILabel = {
         let label = UILabel()
         label.text = "Archie"
         label.numberOfLines = 0
@@ -71,6 +71,17 @@ class OnboardingViewController: UIViewController {
     
     private lazy var inAppButtonsView = NeccessaryInAppButtonsView()
     
+    private lazy var skipButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark"),
+                        for: .normal)
+        button.tintColor = .white
+        button.addTarget(self,
+                         action: #selector(skipButtonAction),
+                         for: .touchUpInside)
+        return button
+    }()
+    
     // MARK: - Properties
     var presenter: OnboardingPresenterProtocol? {
         didSet {
@@ -110,7 +121,7 @@ class OnboardingViewController: UIViewController {
     
     @objc private func nextButtonAction() {
         currentPage += 1
-        presenter?.nextScreenButtonTaped(currentPage: currentPage)
+        presenter?.nextScreenButtonTapped(currentPage: currentPage)
     }
 }
 
@@ -124,11 +135,41 @@ extension OnboardingViewController: OnboardingViewInputProtocol {
                                      inAppButtonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                                      inAppButtonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                                      inAppButtonsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
+        animateInAppButtonsAppearance()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.showSkipButton()
+        }
+    }
+    
+    func animateInAppButtonsAppearance() {
+        inAppButtonsView.layer.opacity = 0
+        UIView.animate(withDuration: 1) {
+            self.inAppButtonsView.layer.opacity = 1
+        }
     }
     
     func dataSetted(withPageNumber number: Int) {
         collectionView.reloadData()
         pageControl.numberOfPages = number
+    }
+    
+    func showSkipButton() {
+        view.addSubview(skipButton)
+        skipButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([skipButton.centerYAnchor.constraint(equalTo: topLabel.centerYAnchor),
+                                     skipButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                                         constant: -20),
+                                     skipButton.heightAnchor.constraint(equalToConstant: 40),
+                                     skipButton.widthAnchor.constraint(equalToConstant: 40)])
+        skipButtonAppearance()
+    }
+    
+    func skipButtonAppearance() {
+        skipButton.layer.opacity = 0
+        UIView.animate(withDuration: 1) {
+            self.skipButton.layer.opacity = 1
+        }
     }
     
     func scrollToNextScreen(indexPath: IndexPath) {
@@ -144,31 +185,32 @@ extension OnboardingViewController: OnboardingViewInputProtocol {
 
 extension OnboardingViewController: NeccessaryInAppButtonsViewDelegate {
     func privacyPolicyTapped() {
-        print("tapped")
+        presenter?.privacyPolicyTapped()
     }
     
     func restorePurchaseTapped() {
-        print("tapped")
+        presenter?.restorePurchaseTapped()
     }
     
     func termsOfUseTapped() {
-        print("tapped")
+        presenter?.termsOfUseTapped()
     }
 }
 
 // MARK: - UICollectionViewDelegate
-extension OnboardingViewController: UICollectionViewDelegate {
+extension OnboardingViewController: UICollectionViewDelegate,
+                                    UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         guard let appearingCell = cell as? OnboardingSlideProtocol else { return }
         appearingCell.appearing()
-//        if indexPath.row > 0 {
-//            guard let disappearingCell = collectionView.cellForItem(at: IndexPath(row: indexPath.row - 1,
-//                                                                                      section: 0)) as? OnboardingSlideProtocol else { return }
-//            disappearingCell.disappearing()
-//        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.collectionView.frame.width,
+                      height: self.collectionView.frame.height)
     }
 }
 
@@ -197,9 +239,8 @@ private extension OnboardingViewController {
         
         view.addSubview(topLabel)
         topLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([topLabel.topAnchor.constraint(equalTo: view.topAnchor,
-                                                                   constant: 66),
+                                                                   constant: UIScreen.main.bounds.height / UIScreen.main.bounds.width > 2 ? 66 : 30),
                                      topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)])
     }
     

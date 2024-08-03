@@ -99,7 +99,7 @@ private extension OnboardingLinesCollectionViewCell {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 90 : 140)),
+                                                                            constant: -30),
                                      labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                              constant: 20),
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
@@ -107,12 +107,13 @@ private extension OnboardingLinesCollectionViewCell {
         ])
         
         contentView.addSubview(bottomImagesStack)
+        print(UIScreen.main.bounds.height)
         bottomImagesStack.translatesAutoresizingMaskIntoConstraints = false
         bottomStackCenterXConstraint = bottomImagesStack.centerXAnchor.constraint(equalTo: centerXAnchor,
                                                                                   constant: 120)
         
         NSLayoutConstraint.activate([bottomImagesStack.bottomAnchor.constraint(equalTo: labelStackView.topAnchor,
-                                                                               constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 20 : 80)),
+                                                                               constant: -(UIScreen.main.bounds.height > 700 ? 80 : 20)),
                                      bottomStackCenterXConstraint!,
                                      bottomImagesStack.widthAnchor.constraint(equalTo: widthAnchor,
                                                                               multiplier: 1.05),
@@ -207,25 +208,4 @@ extension OnboardingLinesCollectionViewCell: OnboardingSlideProtocol {
             }
         }
     }
-    
-//    public func disappearing() {
-//        DispatchQueue.main.async {
-//            [self.topImagesStack,
-//             self.midImagesStack,
-//             self.bottomImagesStack].forEach { view in
-//                UIView.animate(withDuration: 1.5) {
-//                    view.layer.opacity = 0
-//                }
-//            }
-//            UIView.animate(withDuration: 1.5) {
-//                [self.topStackCenterXConstraint,
-//                 self.bottomStackCenterXConstraint].forEach { constraint in
-//                    constraint?.constant = 120
-//                }
-//                self.midStackCenterXConstraint?.constant = -120
-//                self.contentView.layoutIfNeeded()
-//            }
-//            self.clipsToBounds = false
-//        }
-//    }
 }

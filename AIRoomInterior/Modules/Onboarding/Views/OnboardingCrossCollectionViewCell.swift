@@ -88,26 +88,27 @@ private extension OnboardingCrossCollectionViewCell {
         examplesImageView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 100 : 140)),
+                                                                            constant: -30),
                                      labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                              constant: 20),
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
                                                                               constant: -20),
                                      
-                                     examplesImageView.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor),
+                                     examplesImageView.centerYAnchor.constraint(equalTo: mainImageView.centerYAnchor, constant: -40),
                                                                   examplesImageView.widthAnchor.constraint(equalTo: widthAnchor),
                                                                   examplesImageView.heightAnchor.constraint(equalToConstant: 140),
                                                                   examplesImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
                                      
                                      subtitleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-                                     subtitleLabel.topAnchor.constraint(equalTo: examplesImageView.bottomAnchor),
+                                     subtitleLabel.topAnchor.constraint(equalTo: examplesImageView.bottomAnchor,
+                                                                       constant: 5),
                                      
                                      mainImageView.topAnchor.constraint(equalTo: contentView.topAnchor,
                                                                         constant: 5),
                                      mainImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
                                      mainImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
                                      mainImageView.widthAnchor.constraint(equalTo: mainImageView.heightAnchor,
-                                                                          multiplier: 0.32)
+                                                                          multiplier: UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 0.45 : 0.42)
         ])
     }
 }
@@ -135,15 +136,4 @@ extension OnboardingCrossCollectionViewCell: OnboardingSlideProtocol {
             }
         }
     }
-    
-//    public func disappearing() {
-//        DispatchQueue.main.async {
-//            [self.mainImageView,
-//             self.examplesImageView].forEach { view in
-//                UIView.animate(withDuration: 1.5) {
-//                    view.layer.opacity = 0
-//                }
-//            }
-//        }
-//    }
 }

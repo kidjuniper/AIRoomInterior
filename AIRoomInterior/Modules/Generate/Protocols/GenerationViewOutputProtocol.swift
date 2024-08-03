@@ -12,7 +12,7 @@ protocol GenerationViewOutputProtocol {
     func selectedStyle(styleId id: Int)
     func selectedRoom(roomId id: Int)
     func selectedMode(mode: InputMode)
-    func settedDescription(text: String)
+    func updateTextDescription(withText: String)
     func selectedImage(image: UIImage)
     func tappedImageSelection()
     func tappedSetttings()

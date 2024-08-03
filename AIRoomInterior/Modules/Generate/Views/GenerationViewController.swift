@@ -342,6 +342,7 @@ extension GenerationViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension GenerationViewController: GenerationViewInputProtocol {
+    
     func showPayWall() {
         
     }
@@ -403,6 +404,10 @@ extension GenerationViewController: GenerationViewInputProtocol {
     
     func updateImageSelection(withImage image: UIImage) {
         presenter?.selectedImage(image: image)
+    }
+    
+    func updateTextDescription(withText text: String) {
+        presenter?.updateTextDescription(withText: text)
     }
     
     func updateMode(mode: InputMode) {
@@ -477,13 +482,16 @@ extension GenerationViewController: PromtInputViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        textView.text = "Describe the interior (e.g., a modern living room with large windows and soft furniture)..." // заменить на К
+        if textView.text == "" {
+            textView.text = "Describe the interior (e.g., a modern living room with large windows and soft furniture)..."
+        }
     }
     
     func textView(_ textView: UITextView,
                   shouldChangeTextIn range: NSRange,
                   replacementText text: String) -> Bool {
         if text == "\n" { // Check if the return key is pressed
+            presenter?.updateTextDescription(withText: textView.text ?? "")
             textView.resignFirstResponder()
             return false
         }

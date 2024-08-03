@@ -82,12 +82,12 @@ private extension OnboardingTriptychCollectionViewCell {
                                      mainImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
                                      // используем множители для лучшей адаптации к разным девайсам
                                      mainImageView.widthAnchor.constraint(equalTo: widthAnchor,
-                                                                          multiplier: 0.45),
+                                                                          multiplier: 0.55),
                                      mainImageView.heightAnchor.constraint(equalTo: mainImageView.widthAnchor,
                                                                            multiplier: 2.5),
                                      
                                      labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 100 : 140)),
+                                                                            constant: -30),
                                      labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                              constant: 20),
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
@@ -146,16 +146,4 @@ extension OnboardingTriptychCollectionViewCell: OnboardingSlideProtocol {
             }
         }
     }
-    
-//    public func disappearing() {
-//        DispatchQueue.main.async {
-//            [self.rightImageView,
-//             self.mainImageView,
-//             self.leftImageView].forEach { view in
-//                UIView.animate(withDuration: 1.5) {
-//                    view.layer.opacity = 0
-//                }
-//            }
-//        }
-//    }
 }

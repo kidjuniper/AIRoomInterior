@@ -41,7 +41,30 @@ class PromtInputView: UIView {
     
     private var modeButtonsStack: UIStackView = {
         let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 10
+        stack.distribution = .fillEqually
         return stack
+    }()
+    
+    private lazy var textModeButton: ModeButton = {
+        let button = ModeButton()
+        button.setTitle("Text", 
+                        for: .normal)
+        button.titleLabel?.textColor = .white
+        return button
+    }()
+    private lazy var photoModeButton: ModeButton = {
+        let button = ModeButton()
+        button.setTitle("Photo",
+                        for: .normal)
+        button.titleLabel?.textColor = .white
+        button.imageEdgeInsets = UIEdgeInsets(top: 0,
+                                              left: 0,
+                                              bottom: 0,
+                                              right: 10)
+        button.tintColor = .white
+        return button
     }()
     
     private let descriptionTextFiled: UITextView = {
@@ -116,7 +139,7 @@ class PromtInputView: UIView {
         }
     }
     
-    private var selectedMode: InputMode = .text
+    private var selectedMode: InputMode = .photo
     
     // MARK: - Initializer
     
@@ -144,39 +167,48 @@ class PromtInputView: UIView {
                                      stack.bottomAnchor.constraint(equalTo: bottomAnchor),
                                      stack.leadingAnchor.constraint(equalTo: leadingAnchor),
                                      stack.trailingAnchor.constraint(equalTo: trailingAnchor)])
-        stack.addArrangedSubviews(modeSelector,
-                                  descriptionTextFiled)
+        stack.addArrangedSubviews(modeButtonsStack,
+                                  selectPhotoButton)
+        modeButtonsStack.addArrangedSubviews(photoModeButton,
+                                             textModeButton)
         
-        modeSelector.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        modeButtonsStack.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        selectPhotoButton.heightAnchor.constraint(equalToConstant: 107).isActive = true
         
         descriptionTextFiled.heightAnchor.constraint(equalToConstant: 107).isActive = true
         
-        selectPhotoButton.heightAnchor.constraint(equalToConstant: 107).isActive = true
+        imageModeSelected()
     }
     
     private func setUpAppearance() {
         setUpLayout()
-        modeSelector.applyGradient()
     }
     
     //  MARK: - Actions
     private func setUpTargets() {
-        modeSelector.addTarget(self,
-                               action: #selector(update),
-                               for: .valueChanged)
+        textModeButton.addTarget(self,
+                                 action: #selector(textModeSelected), 
+                                 for: .touchUpInside)
+        photoModeButton.addTarget(self,
+                                  action: #selector(imageModeSelected),
+                                  for: .touchUpInside)
     }
     
-    @objc func update() {
-        switch modeSelector.selectedSegmentIndex {
-        case 0:
-            selectPhotoButton.removeFromSuperview()
-            stack.addArrangedSubview(descriptionTextFiled)
-            delegate?.selectMode(mode: .text)
-        default:
-            descriptionTextFiled.removeFromSuperview()
-            stack.addArrangedSubview(selectPhotoButton)
-            delegate?.selectMode(mode: .photo)
-        }
+    @objc func textModeSelected() {
+        delegate?.selectMode(mode: .text)
+        selectPhotoButton.removeFromSuperview()
+        stack.addArrangedSubview(descriptionTextFiled)
+        textModeButton.isSelectedNow = true
+        photoModeButton.isSelectedNow = false
+    }
+    
+    @objc func imageModeSelected() {
+        delegate?.selectMode(mode: .photo)
+        descriptionTextFiled.removeFromSuperview()
+        stack.addArrangedSubview(selectPhotoButton)
+        textModeButton.isSelectedNow = false
+        photoModeButton.isSelectedNow = true
     }
     
     @objc private func selectPhotoButtonTapped() {
@@ -187,7 +219,9 @@ class PromtInputView: UIView {
 //  MARK: - PromtInputViewProtocol
 extension PromtInputView: PromtInputViewProtocol {
     func viewDidLayoutSubviews() {
-        modeSelector.updateGradientFrame()
+        photoModeButton.updateGradientFrame()
+        photoModeButton.setImage(UIImage(systemName: "photo"),
+                                 for: .normal)
         selectPhotoButton.addDashedBorder()
     }
     
@@ -201,6 +235,12 @@ extension PromtInputView: PromtInputViewProtocol {
     
     func imageSetted(image: UIImage) {
         selectPhotoButton.setImage(image,
+                                   for: .normal)
+        selectPhotoButton.imageEdgeInsets = UIEdgeInsets(top: 10,
+                                                         left: 100,
+                                                         bottom: 10,
+                                                         right: 100)
+        selectPhotoButton.setTitle("",
                                    for: .normal)
         processingIndicator.removeFromSuperview()
     }

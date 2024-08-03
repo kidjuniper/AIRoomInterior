@@ -73,6 +73,13 @@
 		A4234D9B2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D9A2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift */; };
 		A4234D9D2C5BC13E0011DD48 /* PurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D9C2C5BC13E0011DD48 /* PurchaseManager.swift */; };
 		A4234DA02C5BE6B00011DD48 /* CustomPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234D9F2C5BE6B00011DD48 /* CustomPageControl.swift */; };
+		A4234DA32C5C13EB0011DD48 /* AccessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234DA22C5C13EB0011DD48 /* AccessManager.swift */; };
+		A4234DA52C5C2C120011DD48 /* ModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234DA42C5C2C120011DD48 /* ModeButton.swift */; };
+		A4234DA72C5CF1810011DD48 /* geometria_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4234DA62C5CF1800011DD48 /* geometria_bold.otf */; };
+		A4234DA92C5CF18C0011DD48 /* geometria_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = A4234DA82C5CF18C0011DD48 /* geometria_light.otf */; };
+		A4234DAB2C5CF7BD0011DD48 /* PayWallInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234DAA2C5CF7BD0011DD48 /* PayWallInputProtocol.swift */; };
+		A4234DAD2C5CF7CF0011DD48 /* PayWallOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234DAC2C5CF7CF0011DD48 /* PayWallOutputProtocol.swift */; };
+		A4234DAF2C5CF8B70011DD48 /* PayWallPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4234DAE2C5CF8B70011DD48 /* PayWallPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +151,14 @@
 		A4234D9A2C5BADE60011DD48 /* NeccessaryInAppButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeccessaryInAppButtonsView.swift; sourceTree = "<group>"; };
 		A4234D9C2C5BC13E0011DD48 /* PurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseManager.swift; sourceTree = "<group>"; };
 		A4234D9F2C5BE6B00011DD48 /* CustomPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPageControl.swift; sourceTree = "<group>"; };
+		A4234DA12C5C0B6F0011DD48 /* Archie - AI Home Design.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Archie - AI Home Design.storekit"; sourceTree = "<group>"; };
+		A4234DA22C5C13EB0011DD48 /* AccessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessManager.swift; sourceTree = "<group>"; };
+		A4234DA42C5C2C120011DD48 /* ModeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeButton.swift; sourceTree = "<group>"; };
+		A4234DA62C5CF1800011DD48 /* geometria_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = geometria_bold.otf; sourceTree = "<group>"; };
+		A4234DA82C5CF18C0011DD48 /* geometria_light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = geometria_light.otf; sourceTree = "<group>"; };
+		A4234DAA2C5CF7BD0011DD48 /* PayWallInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallInputProtocol.swift; sourceTree = "<group>"; };
+		A4234DAC2C5CF7CF0011DD48 /* PayWallOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallOutputProtocol.swift; sourceTree = "<group>"; };
+		A4234DAE2C5CF8B70011DD48 /* PayWallPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayWallPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +232,7 @@
 				A411D9F42C53806B00519312 /* GenerationViewController.swift */,
 				A4234D442C56B4370011DD48 /* TopLineView.swift */,
 				A411D9F22C52445900519312 /* PromtInputView.swift */,
+				A4234DA42C5C2C120011DD48 /* ModeButton.swift */,
 				A411D9F82C53944900519312 /* ResultView.swift */,
 				A411D9EE2C5243D100519312 /* CircledSegmentedControl.swift */,
 				A411D9D92C4EF4FB00519312 /* StyleCollectionViewCell.swift */,
@@ -262,6 +278,8 @@
 			children = (
 				A411D9D22C4D97BC00519312 /* Inter-Regular.ttf */,
 				A411D9D02C4D97B300519312 /* Inter-Bold.ttf */,
+				A4234DA82C5CF18C0011DD48 /* geometria_light.otf */,
+				A4234DA62C5CF1800011DD48 /* geometria_bold.otf */,
 				A411D9B02C4D883F00519312 /* Assets.xcassets */,
 			);
 			path = AssetsNFonts;
@@ -409,6 +427,8 @@
 				A411D9E12C50036B00519312 /* SceneBuildManager.swift */,
 				A4234D892C59E51F0011DD48 /* RatingManager.swift */,
 				A4234D9C2C5BC13E0011DD48 /* PurchaseManager.swift */,
+				A4234DA22C5C13EB0011DD48 /* AccessManager.swift */,
+				A4234DA12C5C0B6F0011DD48 /* Archie - AI Home Design.storekit */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -416,10 +436,10 @@
 		A4234D912C59FC180011DD48 /* PayWall */ = {
 			isa = PBXGroup;
 			children = (
+				A4234D922C59FC210011DD48 /* Protocols */,
 				A4234D952C59FC390011DD48 /* Models */,
 				A4234D942C59FC340011DD48 /* Views */,
 				A4234D932C59FC2B0011DD48 /* Presenter */,
-				A4234D922C59FC210011DD48 /* Protocols */,
 			);
 			path = PayWall;
 			sourceTree = "<group>";
@@ -427,6 +447,8 @@
 		A4234D922C59FC210011DD48 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				A4234DAA2C5CF7BD0011DD48 /* PayWallInputProtocol.swift */,
+				A4234DAC2C5CF7CF0011DD48 /* PayWallOutputProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -434,6 +456,7 @@
 		A4234D932C59FC2B0011DD48 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				A4234DAE2C5CF8B70011DD48 /* PayWallPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -514,8 +537,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A411D9D12C4D97B300519312 /* Inter-Bold.ttf in Resources */,
+				A4234DA72C5CF1810011DD48 /* geometria_bold.otf in Resources */,
 				A411D9B12C4D883F00519312 /* Assets.xcassets in Resources */,
 				A411D9D32C4D97BC00519312 /* Inter-Regular.ttf in Resources */,
+				A4234DA92C5CF18C0011DD48 /* geometria_light.otf in Resources */,
 				A411D9B42C4D883F00519312 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -532,12 +557,14 @@
 				A4234D632C5912450011DD48 /* UIStackView+RemoveArrangedSubviews.swift in Sources */,
 				A4234D592C57A7DF0011DD48 /* OnboardingTriptychCollectionViewCell.swift in Sources */,
 				A4234D872C595BBA0011DD48 /* SettingsTableViewCell.swift in Sources */,
+				A4234DAF2C5CF8B70011DD48 /* PayWallPresenter.swift in Sources */,
 				A411D9F92C53944900519312 /* ResultView.swift in Sources */,
 				A4234D7F2C5929600011DD48 /* SettingsPresenterProtocol.swift in Sources */,
 				A4234D612C59119D0011DD48 /* UIStackView+UppendImageViews.swift in Sources */,
 				A4234D8C2C59E7610011DD48 /* AnimatableSettingsTableViewCell.swift in Sources */,
 				A4234D812C592A630011DD48 /* SettingsPresenter.swift in Sources */,
 				A4234D4F2C578FB30011DD48 /* OnboardingViewProtocol.swift in Sources */,
+				A4234DAB2C5CF7BD0011DD48 /* PayWallInputProtocol.swift in Sources */,
 				A4234D992C59FEC30011DD48 /* PayWallView.swift in Sources */,
 				A4234D492C56DC2E0011DD48 /* UIView+SetGradient.swift in Sources */,
 				A411D9FD2C54D6CE00519312 /* InputResult.swift in Sources */,
@@ -563,13 +590,16 @@
 				A4234D5B2C57CB6A0011DD48 /* OnboardingSlideProtocol.swift in Sources */,
 				A4234D472C56C2EA0011DD48 /* TopLineViewProtocol.swift in Sources */,
 				A4234D9D2C5BC13E0011DD48 /* PurchaseManager.swift in Sources */,
+				A4234DA32C5C13EB0011DD48 /* AccessManager.swift in Sources */,
 				A4234D8E2C59E89C0011DD48 /* SettingsTableCellData.swift in Sources */,
 				A4234D572C57A0A40011DD48 /* OnboaringPresenterProtocol.swift in Sources */,
 				A4234D5F2C58F9AF0011DD48 /* OnboardingLinesCollectionViewCell.swift in Sources */,
+				A4234DAD2C5CF7CF0011DD48 /* PayWallOutputProtocol.swift in Sources */,
 				A4234D3C2C54EBA70011DD48 /* ResultViewProtocol.swift in Sources */,
 				A411D9C72C4D947A00519312 /* RoomType.swift in Sources */,
 				A4234DA02C5BE6B00011DD48 /* CustomPageControl.swift in Sources */,
 				A411D9DC2C4FB3AF00519312 /* RoomTypeCollectionViewCell.swift in Sources */,
+				A4234DA52C5C2C120011DD48 /* ModeButton.swift in Sources */,
 				A411D9A82C4D883D00519312 /* AppDelegate.swift in Sources */,
 				A4234D7D2C5929200011DD48 /* SettingsViewOutputProtocol.swift in Sources */,
 				A4234D5D2C57D1CF0011DD48 /* OnboardingCrossCollectionViewCell.swift in Sources */,
@@ -732,9 +762,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83A3HB7D55;
+				DEVELOPMENT_TEAM = B6GKBR3AGP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AIRoomInterior/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To analyse your room appearance";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To store generated image in your gallery";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -746,7 +778,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.AIRoomInterior;
+				PRODUCT_BUNDLE_IDENTIFIER = com.archieaihom.edesign;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -765,9 +797,11 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 83A3HB7D55;
+				DEVELOPMENT_TEAM = B6GKBR3AGP;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AIRoomInterior/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "To analyse your room appearance";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "To store generated image in your gallery";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -779,7 +813,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.AIRoomInterior;
+				PRODUCT_BUNDLE_IDENTIFIER = com.archieaihom.edesign;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

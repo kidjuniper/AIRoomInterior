@@ -40,7 +40,7 @@ class CustomPageControlContentView: UIView {
     }
 
     private func updateDots() {
-        let dotSize: CGFloat = 6
+        let dotSize: CGFloat = 5
         let selectedDotSize: CGFloat = 50
         let spacing: CGFloat = 8
 

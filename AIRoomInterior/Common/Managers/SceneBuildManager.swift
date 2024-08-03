@@ -21,6 +21,9 @@ final class SceneBuildManager {
 extension SceneBuildManager: Buildable {
     func buildPayWallScreen() -> PayWallViewController {
         let viewController = PayWallViewController()
+        let presenter = PayWallPresenter()
+        viewController.presenter = presenter
+        presenter.viewController = viewController
         return viewController
     }
     
@@ -28,6 +31,8 @@ extension SceneBuildManager: Buildable {
         let viewController = SettingsViewController()
         let presenter = SettingsPresenter(viewController: viewController)
         viewController.presenter = presenter
+        presenter.viewController = viewController
+        presenter.sceneBuildManager = self
         return viewController
     }
     

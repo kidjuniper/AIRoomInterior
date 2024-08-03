@@ -8,5 +8,8 @@
 import Foundation
 
 protocol OnboardingViewOutputProtocol {
-    func nextScreenButtonTaped(currentPage: Int)
+    func nextScreenButtonTapped(currentPage: Int)
+    func privacyPolicyTapped()
+    func restorePurchaseTapped()
+    func termsOfUseTapped()
 }

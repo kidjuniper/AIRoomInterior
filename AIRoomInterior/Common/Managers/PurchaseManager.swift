@@ -15,9 +15,7 @@ class PurchaseManager: ObservableObject {
     @Published private(set) var purchasedSubscriptions: [Product] = []
     @Published private(set) var subscriptionGroupStatus: RenewalState?
  
-    private let productIds: [String] = ["default.subscription.weekly",
-                                        "default.subscription.monthly",
-                                        "default.subscription.semiannual"]
+    private let productIds: [String] = ["default.subscription.weekly"]
     
     static let shared = PurchaseManager()
     
@@ -28,7 +26,6 @@ class PurchaseManager: ObservableObject {
         
         Task {
             await requestProducts()
-            
             await updateCustomerProductStatus()
         }
     }
@@ -57,7 +54,6 @@ class PurchaseManager: ObservableObject {
     func requestProducts() async {
         do {
             subscriptions = try await Product.products(for: productIds)
-            print(subscriptions)
         } catch {
             print("Failed product request from app store server: \(error)")
         }

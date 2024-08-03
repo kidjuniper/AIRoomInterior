@@ -20,5 +20,6 @@ protocol PromtInputViewProtocol: UIView {
 
 protocol PromtInputViewDelegate: UITextViewDelegate {
     func selectMode(mode: InputMode)
+    func updateTextDescription(withText: String)
     func presentImagePicker()
 }

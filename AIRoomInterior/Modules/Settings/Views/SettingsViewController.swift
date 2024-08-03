@@ -70,6 +70,17 @@ class SettingsViewController: UIViewController {
         return label
     }()
     
+    private lazy var unlockPremiumButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Get",
+                       for: .normal)
+        button.tintColor = .black
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        return button
+    }()
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
@@ -131,6 +142,17 @@ class SettingsViewController: UIViewController {
                                                                                       constant: 10)
         ])
         
+        view.addSubview(unlockPremiumButton)
+        unlockPremiumButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([unlockPremiumButton.bottomAnchor.constraint(equalTo: premiumOfferBackgroundImageView.bottomAnchor,
+                                                                                 constant: -15),
+                                     unlockPremiumButton.trailingAnchor.constraint(equalTo: premiumOfferBackgroundImageView.trailingAnchor,
+                                                                                      constant: -10),
+                                     unlockPremiumButton.leadingAnchor.constraint(equalTo: unlockPremiumLabelsStack.trailingAnchor,
+                                                                                       constant: 40),
+                                     unlockPremiumButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor,
@@ -154,10 +176,17 @@ class SettingsViewController: UIViewController {
         backButton.addTarget(self,
                              action: #selector(backButtonPressed),
                              for: .touchUpInside)
+        unlockPremiumButton.addTarget(self,
+                                      action: #selector(premiumButtonPressed),
+                                      for: .touchUpInside)
     }
     
     @objc func backButtonPressed() {
         presenter?.backButtonPressed()
+    }
+    
+    @objc func premiumButtonPressed() {
+        presenter?.premiumTapped()
     }
 }
 

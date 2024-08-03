@@ -10,4 +10,5 @@ import Foundation
 protocol SettingsViewOutputProtocol {
     func cellPresed(indexPath: IndexPath)
     func backButtonPressed()
+    func premiumTapped()
 }

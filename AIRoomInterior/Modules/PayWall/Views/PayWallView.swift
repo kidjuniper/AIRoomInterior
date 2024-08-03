@@ -83,12 +83,12 @@ private extension PayWallView {
         labelStackView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([labelStackView.bottomAnchor.constraint(equalTo: bottomAnchor,
-                                                                            constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 90 : 140)),
+                                                                            constant: -30),
+                                     labelStackView.heightAnchor.constraint(equalToConstant: 100),
                                      labelStackView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                                              constant: 20),
                                      labelStackView.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                                              constant: -20),
-                                     labelStackView.heightAnchor.constraint(greaterThanOrEqualToConstant: 120)
+                                                                              constant: -20)
         ])
         
         addSubview(bottomImagesStack)
@@ -97,7 +97,7 @@ private extension PayWallView {
                                                                                  constant: 120)
         
         NSLayoutConstraint.activate([bottomImagesStack.bottomAnchor.constraint(equalTo: labelStackView.topAnchor,
-                                                                               constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 20 : 80)),
+                                                                               constant: -(UIScreen.main.bounds.height / UIScreen.main.bounds.width < 2 ? 50 : 80)),
                                      bottomStackCenterXConstraint!,
                                      bottomImagesStack.widthAnchor.constraint(equalTo: widthAnchor,
                                                                               multiplier: 1.3),
@@ -119,13 +119,12 @@ private extension PayWallView {
         
         NSLayoutConstraint.activate([mainImageView.bottomAnchor.constraint(equalTo: bottomImagesStack.topAnchor,
                                                                                constant: -20),
-                                     bottomStackCenterXConstraint!,
-                                     mainImageView.widthAnchor.constraint(equalTo: widthAnchor,
-                                                                          multiplier: 0.8),
-                                     mainImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-                                     mainImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 240),
+                                     mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor,
+                                                                           constant: 12),
+                                     mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                                                           constant: -12),
                                      mainImageView.topAnchor.constraint(equalTo: topAnchor,
-                                                                       constant: 100)
+                                                                       constant: 10)
         ])
     }
     
@@ -177,13 +176,4 @@ extension PayWallView {
             }
         }
     }
-    
-//    public func disappearing() {
-//        DispatchQueue.main.async {
-//            self.bottomImagesStack.layer.opacity = 0
-//            self.bottomStackCenterXConstraint?.constant = -120
-//            self.layoutIfNeeded()
-//            self.clipsToBounds = false
-//        }
-//    }
 }

@@ -32,8 +32,8 @@ private extension PayWallCollectionViewCell {
     private func setUpUI() {
         contentView.backgroundColor = UIColor(named: "Black")
         contentView.addSubview(payWallView)
-        payWallView.translatesAutoresizingMaskIntoConstraints = false
         
+        payWallView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([payWallView.topAnchor.constraint(equalTo: topAnchor),
                                      payWallView.leadingAnchor.constraint(equalTo: leadingAnchor),
                                      payWallView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -50,8 +50,4 @@ extension PayWallCollectionViewCell: OnboardingSlideProtocol {
     public func appearing() {
         payWallView.appearing()
     }
-    
-//    public func disappearing() {
-//        payWallView.disappearing()
-//    }
 }

@@ -2,14 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>To store generated image in your gallery</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Камера фотка делать, Кандинский дизайн рисовать</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Inter-Regular.ttf</string>
-		<string>Inter-Bold.ttf</string>
+		<string>geometria_light.otf</string>
+		<string>geometria_bold.otf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

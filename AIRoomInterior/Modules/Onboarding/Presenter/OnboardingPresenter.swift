@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import StoreKit
 
 class OnboardingPresenter: NSObject {
     weak var viewController: OnboardingViewInputProtocol?
+    let store = PurchaseManager()
     
     // MARK: - Private Properties
     private let sceneBuildManager: Buildable
@@ -64,12 +66,12 @@ extension OnboardingPresenter: OnboardingPresenterProtocol {
         viewController?.dataSetted(withPageNumber: onboardingData.count)
     }
     
-    func nextScreenButtonTaped(currentPage: Int) {
+    func nextScreenButtonTapped(currentPage: Int) {
         if currentPage == 3 {
             viewController?.showInAppAttributes()
         }
         if currentPage == 4 {
-            getNextVC()
+            subscribe()
             return
         }
         let indexPath = IndexPath(row: currentPage,
@@ -77,12 +79,54 @@ extension OnboardingPresenter: OnboardingPresenterProtocol {
         viewController?.scrollToNextScreen(indexPath: indexPath)
     }
     
+    func privacyPolicyTapped() {
+        if let url = URL(string: "https://telegra.ph/Archie---AI-Home-Design-07-31") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func restorePurchaseTapped() {
+        Task {
+            do {
+                try await AppStore.sync()
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func termsOfUseTapped() {
+        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func subscribe() {
+        Task {
+            for value in store.subscriptions {
+                await buy(product: value)
+            }
+        }
+    }
+    
+    func buy(product: Product) async {
+        do {
+            if try await store.purchase(product) != nil {
+                getNextVC()
+            }
+        } catch {
+            print("purchase failed")
+        }
+    }
+    
     func getNextVC() {
-        let mainViewController = sceneBuildManager.buildGenerateScreen()
-        let rootViewController = UINavigationController(rootViewController: mainViewController)
-        let allScenes = UIApplication.shared.connectedScenes
-        let scene = allScenes.first { $0.activationState == .foregroundActive }
-        if let windowScene = scene as? UIWindowScene { windowScene.keyWindow?.rootViewController = rootViewController
+        DispatchQueue.main.async {
+            let mainViewController = self.sceneBuildManager.buildGenerateScreen()
+            let rootViewController = UINavigationController(rootViewController: mainViewController)
+            let allScenes = UIApplication.shared.connectedScenes
+            let scene = allScenes.first { $0.activationState == .foregroundActive }
+            if let windowScene = scene as? UIWindowScene { windowScene.keyWindow?.rootViewController = rootViewController
+            }
         }
     }
 }

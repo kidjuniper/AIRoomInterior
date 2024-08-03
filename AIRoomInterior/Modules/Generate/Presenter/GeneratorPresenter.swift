@@ -12,9 +12,13 @@ final class GeneratorPresenter: NSObject,
                                 GeneratorPresenterProtocol {
     weak var view: GenerationViewInputProtocol?
     var sceneBuildManager: Buildable?
+    var store: PurchaseManager = PurchaseManager()
+    
+    private var promtDescription: String = ""
+    private var requestText: String = ""
+    private var imageDescription: String = ""
     
     // вынести в константы
-    private var promtDescription: String = ""
     
     private let roomTypesArray: [String] = RoomType.allCases.map { roomType in
         roomType.rawValue
@@ -100,7 +104,7 @@ extension GeneratorPresenter: GenerationViewOutputProtocol {
     func tappedPro() {
         let newViewController = sceneBuildManager!.buildPayWallScreen()
         newViewController.modalTransitionStyle = .coverVertical
-        newViewController.modalPresentationStyle = .pageSheet
+        newViewController.modalPresentationStyle = .fullScreen
         let allScenes = UIApplication.shared.connectedScenes
         let scene = allScenes.first { $0.activationState == .foregroundActive }
         if let windowScene = scene as? UIWindowScene { windowScene.keyWindow?.rootViewController?.present(newViewController,
@@ -124,13 +128,16 @@ extension GeneratorPresenter: GenerationViewOutputProtocol {
     }
     
     func returnDescr() -> String {
-        promtDescription += "The room MUST be a" + roomTypesArray[selectedRoomId] + " It's the most important!"
-        promtDescription += "The room design MUST be in the \(stylesImageArray[selectedStyleId]) style"
-        return promtDescription
+        requestText = ""
+        requestText += "The room MUST be a " + roomTypesArray[selectedRoomId] + " It's the most important!"
+        requestText += "The room design MUST be in the \(stylesImageArray[selectedStyleId]) style! and "
+        requestText += promtDescription
+        return requestText
     }
     
     func selectedImage(image: UIImage) {
         view?.showImageProcessing()
+        promtDescription = ""
         ImageAnalysisManager.shared.detectObjects(in: image) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -142,7 +149,7 @@ extension GeneratorPresenter: GenerationViewOutputProtocol {
                             aditionalDescription += " \(String(describing: i.label!)),"
                         }
                     }
-                    self.promtDescription = "Make me a design of the room." + aditionalDescription
+                    self.imageDescription = "Make me a design of the room. " + aditionalDescription
                     self.view?.showEndOfImageProcessing(withImage: image)
                     
                 case .failure(let error):
@@ -152,8 +159,8 @@ extension GeneratorPresenter: GenerationViewOutputProtocol {
         }
     }
     
-    func settedDescription(text: String) {
-        promtDescription = text
+    func updateTextDescription(withText text: String) {
+        promtDescription = "Make me a design of the room. " + text
     }
     
     func selectedMode(mode: InputMode) {
@@ -161,23 +168,33 @@ extension GeneratorPresenter: GenerationViewOutputProtocol {
     
     // здесь на кложуре сделать (опционально)
     func generationPressed()  {
-        view?.showLoading()
-        KandinskyAPIManager.shared.authenticate { result in
-            switch result {
-            case .success(let modelId):
-                KandinskyAPIManager.shared.generateImage(prompt: self.returnDescr()) { result in
-                    switch result {
-                    case .success(let uuid):
-                        print("Image generation started with UUID: \(uuid)")
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                self.checkImageGenerationState(withId: uuid)
+        print(self.returnDescr())
+        DispatchQueue.global().async {
+            if !self.store.purchasedSubscriptions.isEmpty {
+                DispatchQueue.main.async {
+                    self.view?.showLoading()
+                    KandinskyAPIManager.shared.authenticate { result in
+                        switch result {
+                        case .success(let modelId):
+                            KandinskyAPIManager.shared.generateImage(prompt: self.returnDescr()) { result in
+                                switch result {
+                                case .success(let uuid):
+                                    print("Image generation started with UUID: \(uuid)")
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                        self.checkImageGenerationState(withId: uuid)
+                                    }
+                                case .failure(let error):
+                                    print("Error generating image: \(error.localizedDescription)")
+                                }
+                            }
+                        case .failure(let error):
+                            print("Authentication failed: \(error.localizedDescription)")
                         }
-                    case .failure(let error):
-                        print("Error generating image: \(error.localizedDescription)")
                     }
                 }
-            case .failure(let error):
-                print("Authentication failed: \(error.localizedDescription)")
+            }
+            else {
+                
             }
         }
     }

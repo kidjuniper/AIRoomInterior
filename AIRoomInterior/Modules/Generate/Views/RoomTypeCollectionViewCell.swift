@@ -49,7 +49,7 @@ class RoomTypeCollectionViewCell: UICollectionViewCell {
             roomNameLabel.textColor = .white
         }
         roomNameLabel.text = data.roomName
-        layer.cornerRadius = 15
+        layer.cornerRadius = 12
         clipsToBounds = true
     }
 }
